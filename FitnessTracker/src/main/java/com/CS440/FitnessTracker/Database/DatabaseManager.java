@@ -1,15 +1,24 @@
 package com.CS440.FitnessTracker.Database;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.sql.DataSource;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 
 public class DatabaseManager {
 
+    public DataSource connect() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/cs440");
+        dataSource.setUsername("guest_user");
+        dataSource.setPassword("guest_password");
+
+        return dataSource;
+    }
+
+/* 
     public static Connection connection() throws SQLException
     {
 
@@ -37,6 +46,7 @@ public class DatabaseManager {
      }
  
     }
+    */
 
 }
 
