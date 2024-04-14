@@ -1,4 +1,4 @@
-package com.CS440.DAO;
+package com.CS440.FitnessTracker.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +7,11 @@ import java.sql.ResultSet;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.CS440.FitnessTracker.Model.User;
 
+@Component
 public class UserDAOImpl implements UserDAO{
 
     @Autowired
@@ -49,11 +51,11 @@ public class UserDAOImpl implements UserDAO{
 
                 hashedPassword = resultTable.getString(1);
                 height = resultTable.getString(2);
-                weight = resultTable.getString(2);
-                age = resultTable.getInt(2);
-                name = resultTable.getString(2);
-                userName = resultTable.getString(2);
-                userID = resultTable.getInt(2);
+                weight = resultTable.getString(3);
+                age = resultTable.getInt(4);
+                name = resultTable.getString(5);
+                userName = resultTable.getString(6);
+                userID = resultTable.getInt(7);
 
                retrievedUser = new User(userID, userName, name, height, weight, age, hashedPassword);
             }
@@ -69,6 +71,7 @@ public class UserDAOImpl implements UserDAO{
         }
         catch(Exception e)
         {
+
             System.out.println(e);
         }
 
@@ -125,13 +128,15 @@ public class UserDAOImpl implements UserDAO{
 
             Connection connection = dataSource.getConnection();
 
+            System.out.println("****INSIDE INSERT****");
+
             // return if user is already in the system
             if(getUser(userName) != null) {
                 System.out.println("insertUser message: User already in system.");
                 return;
             }
             
-            String insertQuery = "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO user VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement prepStatement = connection.prepareStatement(insertQuery);
             prepStatement.setString(1, hashedPassword);
@@ -164,17 +169,17 @@ public class UserDAOImpl implements UserDAO{
     public void updateUser(User user, String[] params) {
 
         // Store updated attributes in variables
-        String hashedPassword = params[0];
-        String height = params[1];
-        String weight = params[2];
-        int age = Integer.valueOf(params[3]);
-        String name = params[4];
-        String userName = params[5];
-        int userID = Integer.valueOf(params[6]); // TODO: update after auto increment
+        int userID = Integer.valueOf(params[0]); // TODO: update after auto increment
+        String userName = params[1];
+        String name = params[2];
+        String height = params[3];
+        String weight = params[4];
+        int age = Integer.valueOf(params[5]);
+        String hashedPassword = params[6];
         try {
             Connection connection = dataSource.getConnection();
 
-            String updateQuery = "UPDATE users SET HashedPassword = ?, Height = ?, Weight = ?, Age = ?, Name = ?, UserName = ?, UserID = ? WHERE UserName = ?";
+            String updateQuery = "UPDATE user SET HashedPassword = ?, Height = ?, Weight = ?, Age = ?, Name = ?, UserName = ?, UserID = ? WHERE UserName = ?";
 
             PreparedStatement prepStatement = connection.prepareStatement(updateQuery);
             prepStatement.setString(1, hashedPassword);

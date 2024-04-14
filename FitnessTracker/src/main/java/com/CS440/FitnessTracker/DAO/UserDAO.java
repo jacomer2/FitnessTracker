@@ -1,4 +1,4 @@
-package com.CS440.DAO;
+package com.CS440.FitnessTracker.DAO;
 
 import com.CS440.FitnessTracker.Model.User;
 
