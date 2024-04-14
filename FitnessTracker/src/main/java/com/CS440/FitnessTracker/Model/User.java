@@ -5,11 +5,11 @@ public class User {
     private String Username;
     private String Name;
     private String Height;
-    private float Weight;
+    private String Weight;
     private int Age;
     private String HashedPassword;
 
-    public User(int UserID, String Username, String Name, String Height, int Weight, int Age, String HashedPassword) {
+    public User(int UserID, String Username, String Name, String Height, String Weight, int Age, String HashedPassword) {
         this.UserID = UserID;
         this.Username = Username;
         this.Name = Name;
@@ -51,11 +51,11 @@ public class User {
         this.Height = Height;
     }
 
-    public float getWeight() {
+    public String getWeight() {
         return Weight;
     }
 
-    public void setWeight(float Weight) {
+    public void setWeight(String Weight) {
         this.Weight = Weight;
     }
 
