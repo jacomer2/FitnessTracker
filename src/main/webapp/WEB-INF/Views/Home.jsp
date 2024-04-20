@@ -53,6 +53,7 @@
                 <a href="#workouts">Today's Workouts</a>
                 <a href="#progress">Progress</a>
                 <a href="#community">Community</a>
+                <a href="/loginLink">LoginTest</a>
                 <!-- Add more navigation links if needed -->
             </nav>
         </header>

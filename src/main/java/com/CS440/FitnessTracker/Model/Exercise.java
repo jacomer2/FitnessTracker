@@ -20,10 +20,19 @@ enum MuscleGroups {
 public class Exercise {
     private int ExerciseID;
     private String Title;
-    private Categories Category;
+    private String Category;
     private String Description;
-    private MuscleGroups MuscleGroup;
-    private int Difficulty;
+    private String MuscleGroup;
+    private String Difficulty;
+
+    public Exercise(int ExerciseID, String Title, String Category, String Description, String MuscleGroup, String Difficulty) {
+        this.ExerciseID = ExerciseID;
+        this.Title = Title;
+        this.Category = Category;
+        this.Description = Description;
+        this.MuscleGroup = MuscleGroup;
+        this.Difficulty = Difficulty;
+    }
 
     public int getExerciseID() {
         return ExerciseID;
@@ -41,11 +50,11 @@ public class Exercise {
         this.Title = title;
     }
 
-    public Categories getCategory() {
+    public String getCategory() {
         return Category;
     }
 
-    public void setCategory(Categories category) {
+    public void setCategory(String category) {
         this.Category = category;
     }
 
@@ -57,19 +66,19 @@ public class Exercise {
         this.Description = description;
     }
 
-    public MuscleGroups getMuscleGroup() {
+    public String getMuscleGroup() {
         return MuscleGroup;
     }
 
-    public void setMuscleGroup(MuscleGroups muscleGroup) {
+    public void setMuscleGroup(String muscleGroup) {
         this.MuscleGroup = muscleGroup;
     }
 
-    public int getDifficulty() {
+    public String getDifficulty() {
         return Difficulty;
     }
 
-    public void setDifficulty(int difficulty) {
+    public void setDifficulty(String difficulty) {
         this.Difficulty = difficulty;
     }
 }

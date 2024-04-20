@@ -1,6 +1,7 @@
 package com.CS440.FitnessTracker.Controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,8 +24,14 @@ public class HomeController {
 		return model;
 	}
 
-	@GetMapping("/home")
-    public String homePage() {
-        return "Home"; // Assuming "Home.jsp" exists in the expected location
-    }
+	@GetMapping("/loginLink")
+	public ModelAndView loginView()
+	{
+		ModelAndView model = new ModelAndView();
+
+		model.setViewName("Login");
+
+		return model;
+	}
+
 }
