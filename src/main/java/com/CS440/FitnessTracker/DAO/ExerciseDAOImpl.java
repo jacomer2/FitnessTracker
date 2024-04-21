@@ -39,10 +39,7 @@ public class ExerciseDAOImpl implements ExerciseDAO {
         for (int i = 0; i < filters.size(); i++) {
             strBuild.append(" AND replaceValue = ?");
         }
-
-
         strBuild.append(";");
-
 
         try {
             Connection connection = dataSource.getConnection();
