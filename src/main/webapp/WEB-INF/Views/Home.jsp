@@ -54,6 +54,7 @@
                 <a href="#progress">Progress</a>
                 <a href="#community">Community</a>
                 <a href="/loginLink">LoginTest</a>
+                <a href="/sandbox">Sandbox</a>
                 <!-- Add more navigation links if needed -->
             </nav>
         </header>

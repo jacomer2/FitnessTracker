@@ -92,7 +92,7 @@ public class ExerciseDAOImpl implements ExerciseDAO {
 
             ResultSet resultTable = prepStatement.executeQuery();
 
-            if (resultTable.next()) {
+            while (resultTable.next()) {
                 exerciseID = resultTable.getInt(1);
                 title = resultTable.getString(2);
                 category = resultTable.getString(3);

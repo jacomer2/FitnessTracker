@@ -1,5 +1,10 @@
 package com.CS440.FitnessTracker.Controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,9 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.CS440.FitnessTracker.DAO.ExerciseDAO;
+import com.CS440.FitnessTracker.Model.Exercise;
+
 @Controller
 @RequestMapping(value = { "/" })
 public class HomeController {
+
+	@Autowired
+    private ExerciseDAO exerciseDAO;
 
 	
 	@GetMapping
@@ -41,6 +52,28 @@ public class HomeController {
 		ModelAndView model = new ModelAndView();
 
 		model.setViewName("Login");
+
+		return model;
+	}
+
+	@GetMapping("/sandbox")
+	public ModelAndView sandboxHandler()
+	{
+		ModelAndView model = new ModelAndView();
+
+		model.setViewName("Sandbox");
+
+		Map<String,String> map = new HashMap<>();
+
+		List exercises = exerciseDAO.getExerciseByFilter(map);
+
+		for (int i = 0; i < exercises.size(); i++) {
+			Exercise ex = (Exercise) exercises.get(i);
+	
+			System.out.println(ex.toString());
+		}
+
+		model.addObject("exercises", exercises);
 
 		return model;
 	}
