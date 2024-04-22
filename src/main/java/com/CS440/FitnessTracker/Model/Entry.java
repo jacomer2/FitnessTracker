@@ -1,16 +1,33 @@
 package com.CS440.FitnessTracker.Model;
+import java.sql.Date;
+import java.sql.Time;
 
-import java.time.LocalDateTime;
+
 
 public class Entry {
     private int EntryID;
     private int Sets;
     private int Repetitions;
     private float Weight;
-    private LocalDateTime DateTime;
+    private Date Date;
+    private Time Time;
     private int UserID;
     private int ExerciseID;
     private int RoutineID;
+
+    public Entry(int EntryID, int Sets, int Repetitions, float Weight, Date Date, Time Time, int UserID, int ExerciseID, int RoutineID){
+
+
+        this.EntryID = EntryID;
+        this.Sets = Sets;
+        this.Repetitions = Repetitions;
+        this.Weight = Weight;
+        this.Date = Date;
+        this.Time = Time;
+        this.UserID = UserID;
+        this.ExerciseID = ExerciseID;
+        this.RoutineID = RoutineID;
+    }
 
     public int getEntryID() {
         return EntryID;
@@ -44,12 +61,20 @@ public class Entry {
         this.Weight = weight;
     }
 
-    public LocalDateTime getDateTime() {
-        return DateTime;
+    public Date getDate() {
+        return Date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.DateTime = dateTime;
+    public void setDate(Date date) {
+        this.Date = date;
+    }
+
+    public Time getTime() {
+        return Time;
+    }
+
+    public void setTime(Time time) {
+        this.Time = time;
     }
 
     public int getUserID() {
