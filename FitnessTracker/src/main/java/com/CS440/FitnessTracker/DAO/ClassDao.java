@@ -27,7 +27,7 @@ public class ClassDao implements ClassDaoInterface{
      * returns 1 on failure
      */
     @Override
-    public int create(com.CS440.FitnessTracker.Model.Class modelClass) throws SQLException {
+    public int create(Class modelClass) throws SQLException {
         // Store extracted attributes from user into variables
         int ClassID = modelClass.getClassID();
         float Price = modelClass.getPrice();
@@ -73,7 +73,7 @@ public class ClassDao implements ClassDaoInterface{
      * returns NULL on failure
      */
     @Override
-    public Class read(com.CS440.FitnessTracker.Model.Class retrieveClass) throws SQLException {
+    public Class read(Class retrieveClass) throws SQLException {
         //init class object to return
         Class modelClass = new Class();
 
@@ -122,20 +122,136 @@ public class ClassDao implements ClassDaoInterface{
 
     @Override
     public List<Class> readAll() throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'readAll'");
+        //init class list obj to return
+        List<Class> classList = new ArrayList<Class>();
+        try {
+
+            Connection connection = dataSource.getConnection();
+
+            String getQuery = "SELECT * FROM class";
+            
+            PreparedStatement prepStatement = connection.prepareStatement(getQuery);
+        
+            //execute
+            ResultSet resultTable = prepStatement.executeQuery();
+
+            // store values returned from db into user object
+            if (resultTable.next()) {
+                Class modelClass = new Class();
+                modelClass.setClassID(resultTable.getInt(1));
+                modelClass.setPrice(resultTable.getFloat(2));
+                modelClass.setDuration(resultTable.getFloat(3));
+                modelClass.setUserID(resultTable.getInt(4));
+
+                String enumString = resultTable.getString(5);
+                modelClass.setClassification(Classification.valueOf(enumString));
+
+                java.sql.Timestamp DateTimeObj = resultTable.getTimestamp(6);
+                LocalDateTime Date = DateTimeObj.toLocalDateTime();
+                modelClass.setDate(Date);    //need to find correct conversions
+
+                classList.add(modelClass);
+            }
+            
+            connection.close();
+            return classList;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }    
+    
+        return null;
+    }
+
+    /*
+     * Finds user by classID in param class and updates mysql class according to given param class
+     * returns 0 on success
+     * returns 1 on failure
+     */
+    @Override
+    public int update(Class modelClass) throws SQLException {
+        // find class by userid
+        int userID = modelClass.getUserID();
+        int classID = modelClass.getClassID();
+        float price = modelClass.getPrice();
+        float duration = modelClass.getDuration();
+        Classification classification = modelClass.getClassification(); 
+        String classificationStr = classification.toString();
+
+        LocalDateTime date = modelClass.getDate();
+
+
+        /*
+         * validate attributes
+         */
+        if(price < 0 || duration < 0 || userID < 0 || classID < 0){
+            throw new IllegalArgumentException("Invalid attribute value in one of the following attributes: " + price + " " + duration + " " + userID + " " + classID);
+        }
+        if(classificationStr != "YOGA" && classificationStr != "DANCE" && classificationStr != "CYCLING")
+        {
+            throw new IllegalArgumentException("Invalid classification: " + classificationStr + "\nMust be 'YOGA', 'DANCE', or 'CYCLING'");
+        }
+        if(date.toString().length() != 8)
+        {
+            throw new IllegalArgumentException("Invalid date: " + date + "\nMust be in format 'YYYYMMDD'");
+        }
+
+        try {
+
+            Connection connection = dataSource.getConnection();
+
+            String updateQuery = "UPDATE class SET Price = ?, Duration = ?, Classification = ?, Date = ? WHERE UserID = ? AND ClassID = ?";
+
+            PreparedStatement prepStatement = connection.prepareStatement(updateQuery);
+            prepStatement.setFloat(1, price);
+            prepStatement.setFloat(2, duration);
+            prepStatement.setString(3, classification.toString());
+            prepStatement.setString(4, date.toString());
+            prepStatement.setInt(5, userID);
+            prepStatement.setInt(6, classID);
+
+            prepStatement.executeUpdate();
+
+            connection.close();
+
+            return 0; //success
+        }
+        catch(Exception e)
+        {
+            System.out.println("ERROR UPDATING CLASS IN classDao.update()");
+            System.out.println(e);
+        }
+        
+        return 1; //fail
     }
 
     @Override
-    public int update(Class t) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
-    }
+    public int delete(Class c) throws SQLException {
+        //get user id
+        int classID = c.getClassID();
+        int userID = c.getUserID();
 
-    @Override
-    public void delete(Class t) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        try {
+
+            Connection connection = dataSource.getConnection();
+
+            String deleteQuery = "DELETE FROM class WHERE UserID = ? AND ClassID = ?";
+
+            PreparedStatement prepStatement = connection.prepareStatement(deleteQuery);
+            prepStatement.setInt(1, userID);
+            prepStatement.setInt(2, classID);
+
+            prepStatement.executeUpdate();
+
+            connection.close();
+            return 0; //success
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return 1; //fail
     }
 
 
@@ -145,12 +261,12 @@ public class ClassDao implements ClassDaoInterface{
      * PARAM: value - value to search for - (use int for date)
      * returns list of class instances on success
      */
-    public ArrayList<com.CS440.FitnessTracker.Model.Class> readByAttribute(String attribute_name, Object value) throws SQLException {
+    public ArrayList<Class> readByAttribute(String attribute_name, Object value) throws SQLException {
         //init class object to return
-        Class modelClass = new Class();
         ArrayList<com.CS440.FitnessTracker.Model.Class> classList = new ArrayList<com.CS440.FitnessTracker.Model.Class>();
-        int parameters_are_verified = 0;
-        String formattedValue = " ";
+        String formattedStr = " ";
+        int formattedValue = 0;
+        double formattedDouble = 0.0;
         //validate attribute_name
         if(attribute_name != "date"
             && attribute_name != "classification" 
@@ -162,7 +278,7 @@ public class ClassDao implements ClassDaoInterface{
                                     throw new IllegalArgumentException("Invalid attribute_name: " + attribute_name);
                                 }
 
-    //validate value and format for prepared statement:
+    //validate value and format value before prepared statement:
         if(attribute_name == "date")
         {
             if(value.toString().length() != 8 )
@@ -177,23 +293,24 @@ public class ClassDao implements ClassDaoInterface{
                 throw new IllegalArgumentException("Invalid value for classification: " + value + "\nMust be 'YOGA', 'DANCE', or 'CYCLING'");
             }
         }
-        else if(attribute_name == "userID" || attribute_name == "classID" || attribute_name == "duration")
+        else if(attribute_name == "userID" || attribute_name == "classID" )
         {
             if(! (value instanceof Integer))
             {
-                throw new IllegalArgumentException("Invalid value for userID: " + value);
+                throw new IllegalArgumentException("Invalid value type for userID, must be of class Integer. Value received: " + value);
             }
-            formattedValue = value.toString();
+            formattedValue = (Integer)value;
 
         }
-        else if(attribute_name == "price")
+        else if(attribute_name == "price" || attribute_name == "duration")
         {
             if(value instanceof Float)
             {
                 DecimalFormat df = new DecimalFormat("#.##");
                 df.setRoundingMode(java.math.RoundingMode.DOWN); // Set rounding mode to DOWN
-                formattedValue = df.format(value);
-                System.out.println("FORMATTED NUMBER: " + value + " to: " + formattedNumber); 
+                formattedStr = df.format(value);
+                formattedDouble = Double.parseDouble(formattedStr);
+                System.out.println("FORMATTED NUMBER: " + value + " to: " + formattedDouble); 
             }
             else
             {
@@ -203,9 +320,12 @@ public class ClassDao implements ClassDaoInterface{
 
 
         try {
+            /*
+             * Create sql query based on attribute_name
+             */
 
             Connection connection = dataSource.getConnection();
-
+            PreparedStatement prepStatement = null;
             //special cases: date
             if(attribute_name.equals("date"))
             {
@@ -215,18 +335,59 @@ public class ClassDao implements ClassDaoInterface{
 
                 String getQuery = "Select * from test where date >= '?' and date < '?'";
                 
-                PreparedStatement prepStatement = connection.prepareStatement(getQuery);
+                prepStatement = connection.prepareStatement(getQuery);
                 prepStatement.setString(1, value.toString());
                 prepStatement.setString(2, nextDayString);
             }
             else
             {
                 String getQuery = "Select * from test where ? = '?'";
-                
-                PreparedStatement prepStatement = connection.prepareStatement(getQuery);
+                prepStatement = connection.prepareStatement(getQuery);
+
                 prepStatement.setString(1, attribute_name);
-                prepStatement.setString(2, value.toString());
+
+                /*
+                 * set value type based on attribute_name
+                 */
+                if(attribute_name == "price" ||| attribute_name == "duration")
+                {
+                    prepStatement.setDouble(2, formattedDouble);
+                }
+                else if(attribute_name == "userID" || attribute_name == "classID")
+                {
+                    prepStatement.setInt(2, formattedValue);
+                }
+                else    //case : value object is a classification
+                {
+                    prepStatement.setString(2, value.toString());
+                }
             }
+
+            //execute
+            ResultSet resultTable = prepStatement.executeQuery();
+
+            // store values returned from db into user object
+            while (resultTable.next()) {
+
+                Class modelClass = new Class();
+
+                modelClass.setClassID(resultTable.getInt(1));
+                modelClass.setPrice(resultTable.getFloat(2));
+                modelClass.setDuration(resultTable.getFloat(3));
+                modelClass.setUserID(resultTable.getInt(4));
+
+                String enumString = resultTable.getString(5);
+                modelClass.setClassification(Classification.valueOf(enumString));
+
+                java.sql.Timestamp DateTimeObj = resultTable.getTimestamp(6);
+                LocalDateTime Date = DateTimeObj.toLocalDateTime();
+                modelClass.setDate(Date);    //need to find correct conversions
+         
+
+                classList.add(modelClass);
+            }                
+            
+            connection.close();
         }
         catch(Exception e)
         {
@@ -298,35 +459,35 @@ public class ClassDao implements ClassDaoInterface{
 
 
     @Override
-    public ArrayList<java.lang.Class> readByClassification(String classification) throws SQLException {
+    public ArrayList<com.CS440.FitnessTracker.Model.Class> readByClassification(String classification) throws SQLException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'readByClassification'");
     }
 
 
     @Override
-    public ArrayList<java.lang.Class> readByUserID(int userID) throws SQLException {
+    public ArrayList<com.CS440.FitnessTracker.Model.Class> readByUserID(int userID) throws SQLException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'readByUserID'");
     }
 
 
     @Override
-    public ArrayList<java.lang.Class> readByClassID(int classID) throws SQLException {
+    public ArrayList<com.CS440.FitnessTracker.Model.Class> readByClassID(int classID) throws SQLException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'readByClassID'");
     }
 
 
     @Override
-    public ArrayList<java.lang.Class> readByPrice(float price) throws SQLException {
+    public ArrayList<com.CS440.FitnessTracker.Model.Class> readByPrice(float price) throws SQLException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'readByPrice'");
     }
 
 
     @Override
-    public ArrayList<java.lang.Class> readByDuration(float duration) throws SQLException {
+    public ArrayList<com.CS440.FitnessTracker.Model.Class> readByDuration(float duration) throws SQLException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'readByDuration'");
     }

@@ -17,5 +17,5 @@ public interface BasicDAOInterface<T>{
     int update(T t) throws SQLException;
 
     //deletes T by ID
-    void delete(T t) throws SQLException;
+    int delete(T t) throws SQLException;
 }
