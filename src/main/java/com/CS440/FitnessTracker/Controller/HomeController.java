@@ -67,12 +67,6 @@ public class HomeController {
 
 		List exercises = exerciseDAO.getExerciseByFilter(map);
 
-		for (int i = 0; i < exercises.size(); i++) {
-			Exercise ex = (Exercise) exercises.get(i);
-	
-			System.out.println(ex.toString());
-		}
-
 		model.addObject("exercises", exercises);
 
 		return model;
