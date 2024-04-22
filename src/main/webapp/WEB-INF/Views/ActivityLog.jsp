@@ -2,6 +2,11 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+ <!-- import sql query from java file -->
+<%@ page import ="com.CS440.FitnessTracker.Services.ActivityLog" %>
+<%@ page import = "java.sql.ResultSet" %>
+
+ <!-- used formatting from jsp other pages and added table formatting for activity log in the body of html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +14,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitness App</title>
     <style>
-        /* Add your CSS styles here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -42,7 +46,6 @@
             text-decoration: none;
             color: #333;
         }
-        /* Add more styles as needed */
     </style>
 </head>
 <body>
@@ -53,27 +56,51 @@
                 <a href="/activitylog">Today's Workouts</a>
                 <a href="#progress">Progress</a>
                 <a href="#community">Community</a>
-                <a href="/loginLink">LoginTest</a>
-                <!-- Add more navigation links if needed -->
             </nav>
         </header>
         <main>
-            <section id="workouts">
-                <h2>Today's Workouts</h2>
-                <!-- Add content for displaying today's workouts -->
-            </section>
-            <section id="progress">
-                <h2>Progress</h2>
-                <!-- Add content for displaying user's fitness progress -->
-            </section>
-            <section id="community">
-                <h2>Community</h2>
-                <!-- Add content for displaying community features -->
-            </section>
+            <h2>Activity Log</h2>
+            <div>
+             <!-- create results table -->
+            <% 
+                ActivityLog activities = new ActivityLog();
+                ResultSet resultsTable = activities.getActivityLog();
+            %>
+             <!-- display each line on the page -->
+            <div>
+       
+<table>
+    <thead>
+        <tr>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Exercise</th>
+            <th>Sets</th>
+            <th>Repetitions</th>
+            <th>Weight</th>
+            <th>Date</th>
+            <th>Time</th>
+        </tr>
+        <% while(resultsTable.next()) { %>
+        <tr>
+            <td><%= resultsTable.getString("StartTime") %></td>
+            <td><%= resultsTable.getString("EndTime") %></td>
+            <td><%= resultsTable.getString("Title") %></td>
+            <td><%= resultsTable.getInt("Sets") %></td>
+            <td><%= resultsTable.getInt("Repetitions") %></td>
+            <td><%= resultsTable.getInt("Weight")%></td>
+            <td><%= resultsTable.getString("Date") %></td>
+            <td><%= resultsTable.getString("Time") %></td>
+        </tr>
+        <% } %>
+    </thead>
+</table>
+
+            </div>
+        </div>
         </main>
         <footer>
             <p>&copy; 2024 Fitness App. All rights reserved.</p>
-            <!-- Add additional footer content if needed -->
         </footer>
     </div>
 </body>
