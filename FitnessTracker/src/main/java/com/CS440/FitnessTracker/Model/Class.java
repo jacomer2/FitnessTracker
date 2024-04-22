@@ -20,6 +20,14 @@ public enum Classification {
     private LocalDateTime Date;
     private int UserID;
 
+    public Class(int classID, float d, Classification string, float duration, int userID) {
+        this.ClassID = classID;
+        this.Price = d;
+        this.Classification = string;
+        this.Duration = duration;
+        this.UserID = userID;
+    }
+
     public int getClassID() {
         return ClassID;
     }

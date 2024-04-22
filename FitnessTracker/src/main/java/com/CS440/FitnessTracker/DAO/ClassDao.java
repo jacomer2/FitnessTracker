@@ -12,12 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.CS440.FitnessTracker.Model.Class;
 import com.CS440.FitnessTracker.Model.Class.Classification;
 import com.mysql.cj.protocol.a.LocalDateTimeValueEncoder;
 
 public class ClassDao implements ClassDaoInterface{
 
+    @Autowired
     private DataSource dataSource;
 
     
