@@ -28,7 +28,7 @@ public class ExerciseEntryDAOImpl implements ExerciseEntryDAO {
         int repetitions;
         float weight;
         Date date;
-        Time time;
+        int time;
         int exerciseID;
         int routineID;
 
@@ -55,14 +55,13 @@ public class ExerciseEntryDAOImpl implements ExerciseEntryDAO {
                         sets = resultTable.getInt(2);
                         repetitions = resultTable.getInt(3);
                         weight = resultTable.getInt(4);
-                        date = resultTable.getDate(5);
-                        time = resultTable.getTime(6);
+                        time = resultTable.getInt(6);
                         userID = resultTable.getInt(7);
                         exerciseID = resultTable.getInt(7);
                         routineID = resultTable.getInt(7);
 
         
-                       retrievedEntry = new Entry(entryID, sets, repetitions, weight, date, time, userID, exerciseID, routineID);
+                       retrievedEntry = new Entry(entryID, sets, repetitions, weight, time, userID, exerciseID, routineID);
                     
                        retrievedEntries.add(retrievedEntry);
                     
