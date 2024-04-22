@@ -1,6 +1,7 @@
 package com.CS440.FitnessTracker.Model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class Class {
@@ -16,7 +17,7 @@ public enum Classification {
     private float Price;
     private Classification Classification;
     private float Duration;
-    private LocalDate Date;
+    private LocalDateTime Date;
     private int UserID;
 
     public int getClassID() {
@@ -51,11 +52,11 @@ public enum Classification {
         this.Duration = duration;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return Date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.Date = date;
     }
 
