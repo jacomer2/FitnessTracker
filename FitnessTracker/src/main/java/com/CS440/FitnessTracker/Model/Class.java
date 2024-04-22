@@ -2,16 +2,19 @@ package com.CS440.FitnessTracker.Model;
 
 import java.time.LocalDate;
 
-enum Classifications {
-    YOGA,
-    DANCE,
-    CYCLING
-}
 
 public class Class {
+
+ 
+public enum Classification {
+        YOGA,
+        DANCE,
+        CYCLING
+ }
+
     private int ClassID;
     private float Price;
-    private Classifications Classification;
+    private Classification Classification;
     private float Duration;
     private LocalDate Date;
     private int UserID;
@@ -32,11 +35,11 @@ public class Class {
         this.Price = price;
     }
 
-    public Classifications getClassification() {
+    public Classification getClassification() {
         return Classification;
     }
 
-    public void setClassification(Classifications classification) {
+    public void setClassification(Classification classification) {
         this.Classification = classification;
     }
 
