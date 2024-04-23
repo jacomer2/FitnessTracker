@@ -21,39 +21,35 @@ public class ActivityLog {
     private DataSource dataSource;
 
 
-    public ResultSet getActivityLog(){
-
-        PreparedStatement prepStatement;
-        ResultSet resSet = null;
-        Connection connection = null;
+    public  List<Activity> getActivityLog(){
         List<Activity> activities = new ArrayList<>();
         try {
-            connection = dataSource.getConnection();
-            
-            prepStatement = connection.prepareStatement("CREATE VIEW ActivityLog\n" + 
+            Connection connection = dataSource.getConnection();
+            PreparedStatement prepStatement = connection.prepareStatement("CREATE VIEW ActivityLog\n" + 
                     "AS SELECT Routine.StartTime as StartTime, Routine.EndTime as EndTime, Exercise.Title as Title, Exercise_Entry.Sets as Sets, Exercise_Entry.Repetitions as Repetitions, Exercise_Entry.Weight as Weight, Exercise_Entry.Date as Date, Exercise_Entry.Time as Time\n" + //
                     "   FROM Routine, Exercise, Exercise_Entry");
 
-            System.out.println("prepstmt:"+prepStatement);
-            resSet = prepStatement.executeQuery();
+            ResultSet resSet = prepStatement.executeQuery();
             while(resSet.next()){
-                Time startTime = resSet.getTime(1);
-                Time endTime = resSet.getTime(2);
-                String title = resSet.getString(3);
-                int sets = resSet.getInt(4);
-                int reps = resSet.getInt(5);
-                float weight = resSet.getFloat(6);
-                Date date = resSet.getDate(7);
+                Date date = resSet.getDate(1);
+                Time startTime = resSet.getTime(2);
+                Time endTime = resSet.getTime(3);
+                String title = resSet.getString(4);
+                int sets = resSet.getInt(5);
+                int reps = resSet.getInt(6);
+                float weight = resSet.getFloat(7);
                 Time totalTime = resSet.getTime(8);
-                Activity activity = new Activity(startTime,endTime,title,sets,reps,weight,date,totalTime);
+                Activity activity = new Activity(date,startTime,endTime,title,sets,reps,weight,totalTime);
                 activities.add(activity);
             }
+     
+            return activities;
         }
         catch(Exception e)
         {
             System.out.println("activity log: "+ e);
         }
-        return resSet;
+        return null;
     }
 
 }

@@ -1,7 +1,6 @@
 package com.CS440.FitnessTracker.Controller;
 
 import java.sql.ResultSet;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.CS440.FitnessTracker.Model.Activity;
 import com.CS440.FitnessTracker.Services.ActivityLog;
 
 @Controller
@@ -40,15 +40,17 @@ public class HomeController {
 
 		return model;
 	}
+
+	//mapping for activity log page
 	@GetMapping("/activitylog")
 	public ModelAndView activityView()
 	{
 		ModelAndView model = new ModelAndView();
-
 		model.setViewName("ActivityLog");
 
+		//pass table from Activity log java code to jsp page for display
 		ActivityLog activities = new ActivityLog();
-		ResultSet resultsTable = activities.getActivityLog();
+		 List<Activity> resultsTable = activities.getActivityLog();
 		model.addObject("activities", resultsTable);
 
 		return model;
