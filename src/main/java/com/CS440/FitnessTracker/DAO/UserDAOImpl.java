@@ -29,8 +29,10 @@ public class UserDAOImpl implements UserDAO{
         int userID;
         String name;
         String hashedPassword;
-        String height;
-        String weight;
+        int height;
+        float weight;
+        float BMI;
+        String BMI_Class;
         int age;
 
         // User object to later store user retrieved from db
@@ -50,14 +52,16 @@ public class UserDAOImpl implements UserDAO{
             if (resultTable.next()) {
 
                 hashedPassword = resultTable.getString(1);
-                height = resultTable.getString(2);
-                weight = resultTable.getString(3);
-                age = resultTable.getInt(4);
-                name = resultTable.getString(5);
-                userName = resultTable.getString(6);
-                userID = resultTable.getInt(7);
+                height = resultTable.getInt(2);
+                weight = resultTable.getInt(3);
+                BMI = resultTable.getFloat(4);
+                BMI_Class = resultTable.getString(5);
+                age = resultTable.getInt(6);
+                name = resultTable.getString(7);
+                userName = resultTable.getString(8);
+                userID = resultTable.getInt(9);
 
-               retrievedUser = new User(userID, userName, name, height, weight, age, hashedPassword);
+               retrievedUser = new User(userID, userName, name, height, weight, BMI, BMI_Class, age, hashedPassword);
             }
 
             connection.close();
@@ -117,8 +121,10 @@ public class UserDAOImpl implements UserDAO{
 
         // Store extracted attributes from user into variables
         String hashedPassword = user.getHashedPassword();
-        String height = user.getHeight();
-        String weight = user.getWeight();
+        int height = user.getHeight();
+        Float weight = user.getWeight();
+        float BMI = user.getBMI();
+        String BMI_Class = user.getBMI_Class();
         int age = user.getAge();
         String name = user.getName();
         String userName = user.getUsername();
@@ -136,16 +142,18 @@ public class UserDAOImpl implements UserDAO{
                 return;
             }
             
-            String insertQuery = "INSERT INTO user VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO user VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement prepStatement = connection.prepareStatement(insertQuery);
             prepStatement.setString(1, hashedPassword);
-            prepStatement.setString(2, height);
-            prepStatement.setString(3, weight);
-            prepStatement.setInt(4, age);
-            prepStatement.setString(5, name);
-            prepStatement.setString(6, userName);
-            prepStatement.setInt(7, userID);
+            prepStatement.setInt(2, height);
+            prepStatement.setFloat(3, weight);
+            prepStatement.setFloat(4, BMI);
+            prepStatement.setString(5, BMI_Class);
+            prepStatement.setInt(6, age);
+            prepStatement.setString(7, name);
+            prepStatement.setString(8, userName);
+            prepStatement.setInt(9, userID);
             prepStatement.executeUpdate();
 
             connection.close();
@@ -172,24 +180,28 @@ public class UserDAOImpl implements UserDAO{
         int userID = Integer.valueOf(params[0]); // TODO: update after auto increment
         String userName = params[1];
         String name = params[2];
-        String height = params[3];
-        String weight = params[4];
-        int age = Integer.valueOf(params[5]);
-        String hashedPassword = params[6];
+        int height = Integer.valueOf(params[3]);
+        float weight = Float.valueOf(params[4]);
+        float BMI = Float.valueOf(params[5]);
+        String BMI_Class = params[6];
+        int age = Integer.valueOf(params[7]);
+        String hashedPassword = params[8];
         try {
             Connection connection = dataSource.getConnection();
 
-            String updateQuery = "UPDATE user SET HashedPassword = ?, Height = ?, Weight = ?, Age = ?, Name = ?, UserName = ?, UserID = ? WHERE UserName = ?";
+            String updateQuery = "UPDATE user SET HashedPassword = ?, Height = ?, Weight = ?, BMI = ?, BMIClass = ?, Age = ?, Name = ?, UserName = ?, UserID = ? WHERE UserName = ?";
 
             PreparedStatement prepStatement = connection.prepareStatement(updateQuery);
             prepStatement.setString(1, hashedPassword);
-            prepStatement.setString(2, height);
-            prepStatement.setString(3, weight);
-            prepStatement.setInt(4, age);
-            prepStatement.setString(5, name);
-            prepStatement.setString(6, userName);
-            prepStatement.setInt(7, userID);
-            prepStatement.setString(8, user.getUsername());
+            prepStatement.setInt(2, height);
+            prepStatement.setFloat(3, weight);
+            prepStatement.setFloat(4, BMI);
+            prepStatement.setString(5, BMI_Class);
+            prepStatement.setInt(6, age);
+            prepStatement.setString(7, name);
+            prepStatement.setString(8, userName);
+            prepStatement.setInt(9, userID);
+            prepStatement.setString(10, user.getUsername());
 
             prepStatement.executeUpdate();
 

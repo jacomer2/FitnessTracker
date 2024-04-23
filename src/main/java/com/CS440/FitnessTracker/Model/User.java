@@ -4,17 +4,21 @@ public class User {
     private int UserID;
     private String Username;
     private String Name;
-    private String Height;
-    private String Weight;
+    private int Height;
+    private Float Weight;
+    private float BMI;
+    private String BMI_Class;
     private int Age;
     private String HashedPassword;
 
-    public User(int UserID, String Username, String Name, String Height, String Weight, int Age, String HashedPassword) {
+    public User(int UserID, String Username, String Name, int Height, Float Weight, Float BMI, String BMI_Class, int Age, String HashedPassword) {
         this.UserID = UserID;
         this.Username = Username;
         this.Name = Name;
         this.Height = Height;
         this.Weight = Weight;
+        this.BMI = BMI;
+        this.BMI_Class = BMI_Class;
         this.Age = Age;
         this.HashedPassword = HashedPassword;
     }
@@ -43,20 +47,36 @@ public class User {
         this.Name = Name;
     }
 
-    public String getHeight() {
+    public int getHeight() {
         return Height;
     }
 
-    public void setHeight(String Height) {
+    public void setHeight(int Height) {
         this.Height = Height;
     }
 
-    public String getWeight() {
+    public Float getWeight() {
         return Weight;
     }
 
-    public void setWeight(String Weight) {
+    public void setWeight(Float Weight) {
         this.Weight = Weight;
+    }
+
+    public Float getBMI() {
+        return BMI;
+    }
+
+    public void setBMI(Float BMI) {
+        this.BMI = BMI;
+    }
+
+    public String getBMI_Class() {
+        return BMI_Class;
+    }
+
+    public void setBMI_Class(String BMI_Class) {
+        this.BMI_Class = BMI_Class;
     }
 
     public int getAge() {

@@ -20,7 +20,9 @@ public class UserDAOImplTest {
     public void testInsert() {
 
 
-        User testUser = new User(123, "john24", "John", "5\'7", "150", 45, "fakeHash");
+        
+
+        User testUser = new User(123, "john24", "John", 68, (float)150.0, (float)23.0, "Healthy", 45, "fakeHash");
 
         System.out.printf("%d\n", testUser.getUserID());
 
@@ -38,7 +40,7 @@ public class UserDAOImplTest {
         User retUser = userDAO.getUser(userName);
 
         System.out.println("Returned user: " + retUser);
-        System.out.printf("%d %s %s %s %s %d %s", retUser.getUserID(), retUser.getUsername(), retUser.getName(), retUser.getHeight(), retUser.getWeight(), retUser.getAge(), retUser.getHashedPassword());
+        System.out.printf("%d %s %s %d %f %f %s %d %s", retUser.getUserID(), retUser.getUsername(), retUser.getName(), retUser.getHeight(), retUser.getWeight(), retUser.getBMI(), retUser.getBMI_Class(), retUser.getAge(), retUser.getHashedPassword());
     
         assertNotNull(retUser);
     
@@ -50,7 +52,7 @@ public class UserDAOImplTest {
 
         User retUser = userDAO.getUser(userName);
 
-        String params[] = {"123", "john24", "John", "5\'7", "163", "46", "updatedFakeHash"};
+        String params[] = {"123", "john24", "John", "68", "163", "22.0", "Under", "46", "updatedFakeHash"};
 
         userDAO.updateUser(retUser, params);
     }
