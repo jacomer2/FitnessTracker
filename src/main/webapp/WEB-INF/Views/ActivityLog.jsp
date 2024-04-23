@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+ <!-- used formatting from jsp other pages and added table formatting for activity log in the body of html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitness App</title>
     <style>
-        /* Add your CSS styles here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -42,7 +43,6 @@
             text-decoration: none;
             color: #333;
         }
-        /* Add more styles as needed */
     </style>
 </head>
 <body>
@@ -53,28 +53,40 @@
                 <a href="/activitylog">Today's Workouts</a>
                 <a href="#progress">Progress</a>
                 <a href="#community">Community</a>
-                <a href="/loginLink">LoginTest</a>
-                <a href="/sandbox">Sandbox</a>
-                <!-- Add more navigation links if needed -->
             </nav>
         </header>
         <main>
-            <section id="workouts">
-                <h2>Today's Workouts</h2>
-                <!-- Add content for displaying today's workouts -->
-            </section>
-            <section id="progress">
-                <h2>Progress</h2>
-                <!-- Add content for displaying user's fitness progress -->
-            </section>
-            <section id="community">
-                <h2>Community</h2>
-                <!-- Add content for displaying community features -->
-            </section>
+            <h2>Activity Log</h2>
+            <div>
+                             <!-- create results table -->
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Exercise</th>
+                        <th>Sets</th>
+                        <th>Repetitions</th>
+                        <th>Weight</th>
+                        <th>Total Time</th>
+                    </tr>
+                    <c:forEach items="${activities}" var="activities" varStatus="status">
+                        <tr>
+                            <td>${activities.getDate()}</td>
+                            <td>${activities.getStartTime()}</td>
+                            <td>${activities.getEndTime()}</td>
+                            <td>${activities.getTitle()}</td>
+                            <td>${activities.getSets()}</td>
+                            <td>${activities.getRepetitions()}</td>
+                            <td>${activities.getWeight()}</td>
+                            <td>${activities.getTime()}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+        </div>
         </main>
         <footer>
             <p>&copy; 2024 Fitness App. All rights reserved.</p>
-            <!-- Add additional footer content if needed -->
         </footer>
     </div>
 </body>

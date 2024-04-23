@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.CS440.FitnessTracker.DAO.ExerciseDAO;
+import com.CS440.FitnessTracker.Model.Activity;
 import com.CS440.FitnessTracker.Model.Exercise;
+import com.CS440.FitnessTracker.Services.ActivityLog;
 
 @Controller
 @RequestMapping(value = { "/" })
@@ -71,5 +73,20 @@ public class HomeController {
 
 		return model;
 	}
+
+		//mapping for activity log page
+		@GetMapping("/activitylog")
+		public ModelAndView activityView()
+		{
+			ModelAndView model = new ModelAndView();
+			model.setViewName("ActivityLog");
+	
+			//pass table from Activity log java code to jsp page for display
+			ActivityLog activities = new ActivityLog();
+			 List<Activity> resultsTable = activities.getActivityLog();
+			model.addObject("activities", resultsTable);
+	
+			return model;
+		}
 
 }
