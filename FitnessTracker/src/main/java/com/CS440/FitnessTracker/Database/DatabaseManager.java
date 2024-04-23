@@ -1,6 +1,10 @@
 package com.CS440.FitnessTracker.Database;
 
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -10,17 +14,17 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @Configuration
 public class DatabaseManager {
     @Bean
-    public DataSource connect() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/cs440");
-        dataSource.setUsername("guest_user");
-        dataSource.setPassword("guest_password");
+    // public DataSource connect() {
+    //     DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    //     dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+    //     dataSource.setUrl("jdbc:mysql://localhost:3306/cs440");
+    //     dataSource.setUsername("guest_user");
+    //     dataSource.setPassword("guest_password");
 
-        return dataSource;
-    }
+    //     return dataSource;
+    // }
 
-/* 
+
     public static Connection connection() throws SQLException
     {
 
@@ -29,8 +33,8 @@ public class DatabaseManager {
 
         //attempt at connection to db
         String url = "jdbc:mysql://localhost:3306/fitnessapp[440]";
-        String username = "root";
-        String password = "Skywalker2001!";
+        String username = "guest_user";
+        String password = "Guest_password!1";
 
     try{
          
@@ -48,7 +52,6 @@ public class DatabaseManager {
      }
  
     }
-    */
 
 }
 

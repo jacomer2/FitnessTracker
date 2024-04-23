@@ -13,7 +13,7 @@ public class DatabaseManagerTest {
     @org.junit.jupiter.api.Test
     public void databaseTest() throws SQLException
     {
-        assertNotNull(dbms.connect());
+        assertNotNull(dbms.connection());
 
     }
 }
