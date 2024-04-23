@@ -61,42 +61,31 @@
         <main>
             <h2>Activity Log</h2>
             <div>
-             <!-- create results table -->
-            <% 
-                ActivityLog activities = new ActivityLog();
-                ResultSet resultsTable = activities.getActivityLog();
-            %>
-             <!-- display each line on the page -->
-            <div>
-       
-<table>
-    <thead>
-        <tr>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Exercise</th>
-            <th>Sets</th>
-            <th>Repetitions</th>
-            <th>Weight</th>
-            <th>Date</th>
-            <th>Time</th>
-        </tr>
-        <% while(resultsTable.next()) { %>
-        <tr>
-            <td><%= resultsTable.getString("StartTime") %></td>
-            <td><%= resultsTable.getString("EndTime") %></td>
-            <td><%= resultsTable.getString("Title") %></td>
-            <td><%= resultsTable.getInt("Sets") %></td>
-            <td><%= resultsTable.getInt("Repetitions") %></td>
-            <td><%= resultsTable.getInt("Weight")%></td>
-            <td><%= resultsTable.getString("Date") %></td>
-            <td><%= resultsTable.getString("Time") %></td>
-        </tr>
-        <% } %>
-    </thead>
-</table>
-
-            </div>
+                             <!-- create results table -->
+                <table>
+                    <tr>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Exercise</th>
+                        <th>Sets</th>
+                        <th>Repetitions</th>
+                        <th>Weight</th>
+                        <th>Date</th>
+                        <th>Total Time</th>
+                    </tr>
+                    <c:forEach items="${activities}" var="activities" varStatus="status">
+                        <tr>
+                            <td>${activities.getStartTime()}</td>
+                            <td>${activities.getEndTime()}</td>
+                            <td>${activities.getTitle()}</td>
+                            <td>${activities.getSets()}</td>
+                            <td>${activities.getRepetitions()}</td>
+                            <td>${activities.getWeight()}</td>
+                            <td>${activities.getDate()}</td>
+                            <td>${activities.getTime()}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
         </div>
         </main>
         <footer>

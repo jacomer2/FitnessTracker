@@ -1,11 +1,17 @@
 package com.CS440.FitnessTracker.Controller;
 
+import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.CS440.FitnessTracker.Services.ActivityLog;
 
 @Controller
 @RequestMapping(value = { "/" })
@@ -41,17 +47,13 @@ public class HomeController {
 
 		model.setViewName("ActivityLog");
 
-		return model;
-	}
-
-	@PostMapping("/activtyHandler")
-	public ModelAndView activityHandler()
-	{
-		ModelAndView model = new ModelAndView();
-
-		model.setViewName("ActivityLog");
+		ActivityLog activities = new ActivityLog();
+		ResultSet resultsTable = activities.getActivityLog();
+		model.addObject("activities", resultsTable);
 
 		return model;
 	}
+
+
 
 }

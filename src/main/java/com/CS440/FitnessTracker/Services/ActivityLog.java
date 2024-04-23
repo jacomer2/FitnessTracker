@@ -32,13 +32,13 @@ public class ActivityLog {
             
             prepStatement = connection.prepareStatement("CREATE VIEW ActivityLog\n" + 
                     "AS SELECT Routine.StartTime as StartTime, Routine.EndTime as EndTime, Exercise.Title as Title, Exercise_Entry.Sets as Sets, Exercise_Entry.Repetitions as Repetitions, Exercise_Entry.Weight as Weight, Exercise_Entry.Date as Date, Exercise_Entry.Time as Time\n" + //
-                    "   FROM Routine, Exercise, Exercise_Entry, User\n" + 
-                    "   WHERE User.UserID = Exercise_Entry.UserID;");
+                    "   FROM Routine, Exercise, Exercise_Entry");
+
             System.out.println("prepstmt:"+prepStatement);
             resSet = prepStatement.executeQuery();
             while(resSet.next()){
-                String startTime = resSet.getString(1);
-                String endTime = resSet.getString(2);
+                Time startTime = resSet.getTime(1);
+                Time endTime = resSet.getTime(2);
                 String title = resSet.getString(3);
                 int sets = resSet.getInt(4);
                 int reps = resSet.getInt(5);

@@ -6,8 +6,8 @@ import java.sql.Time;
 
 public class Activity {
 //need to change and set constructor. 
-private String startTime;
-private String endTime;
+private Time startTime;
+private Time endTime;
 private String title;
 private int sets;
 private int reps;
@@ -17,7 +17,7 @@ private Date date;
 
 
 
-public Activity(String startTime, String endTime, String title, int sets, int reps, float weight, Date date, Time time){
+public Activity(Time startTime, Time endTime, String title, int sets, int reps, float weight, Date date, Time time){
 this.startTime =startTime;
 this.endTime = endTime;
 this.title = title;
@@ -29,10 +29,10 @@ this.date = date;
 this.weight = weight;
 
 }
-public String getStartTime(){
+public Time getStartTime(){
     return startTime;
 }
-public String getEndTime(){
+public Time getEndTime(){
     return endTime;
 }
 
@@ -54,6 +54,10 @@ public float getWeight(){
 
 public Time getTime(){
     return time;
+}
+
+public Date getDate(){
+    return date;
 }
 
 // public int getUser(){
