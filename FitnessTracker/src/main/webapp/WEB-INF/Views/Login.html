@@ -7,13 +7,17 @@
 <style>
   body {
     font-family: Arial, sans-serif;
-    background-color: #f1f1f1;
+    /* Background gradient */
+    background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    /* Text shadow for better readability */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    color: #fff;
   }
   .login-container {
     background-color: #fff;
@@ -23,6 +27,8 @@
     width: 300px;
     max-width: 90%;
     text-align: center;
+    /* Transparent background with slight opacity */
+    background-color: rgba(255, 255, 255, 0.9);
   }
   h2 {
     margin-bottom: 20px;
@@ -60,6 +66,11 @@
     <input type="password" name="password" placeholder="Password" required>
     <input type="submit" value="Login">
   </form>
+</div>
+<!-- Relevant Text Added to the Background -->
+<div style="position: absolute; top: 20px; left: 20px;">
+  <h1>Welcome to Our Fitness App Portal</h1>
+  <p>Please enter your credentials to access your account.</p>
 </div>
 </body>
 </html>
