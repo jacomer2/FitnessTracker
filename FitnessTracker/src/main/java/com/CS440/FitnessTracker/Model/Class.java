@@ -6,24 +6,26 @@ import java.time.LocalDateTime;
 
 public class Class {
 
- 
-public enum Classification {
-        YOGA,
-        DANCE,
-        CYCLING
- }
 
     private int ClassID;
     private float Price;
-    private Classification Classification;
+    private String Classification; //... YOGA, CARDIO, WEIGHTS, CYCLING, POOL...
     private float Duration;
-    private LocalDateTime Date;
+    private int date; //has to be in yyyymmdd format
+    private int time; //has to be in hhmm format
     private int UserID;
 
-    public Class(int classID, float d, Classification string, float duration, int userID) {
+    /*
+     * default constructor
+     */
+    public Class(){
+
+    }
+
+    public Class(int classID, float price, String classification, float duration, int userID) {
         this.ClassID = classID;
-        this.Price = d;
-        this.Classification = string;
+        this.Price = price;
+        this.Classification = classification;
         this.Duration = duration;
         this.UserID = userID;
     }
@@ -44,11 +46,11 @@ public enum Classification {
         this.Price = price;
     }
 
-    public Classification getClassification() {
+    public String getClassification() {
         return Classification;
     }
 
-    public void setClassification(Classification classification) {
+    public void setClassification(String classification) {
         this.Classification = classification;
     }
 
@@ -60,12 +62,31 @@ public enum Classification {
         this.Duration = duration;
     }
 
-    public LocalDateTime getDate() {
-        return Date;
+    /*
+     * receives date in yyyymmdd format
+     */
+    public int getDate() {
+        return date;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.Date = date;
+    /*
+     * param date : yyyymmdd format
+     */
+    public void setDate(int date) {
+        this.date = date;
+    }
+/*
+     * receives time in hhmm format
+     */
+    public int getTime() {
+        return this.time;
+    }
+
+    /*
+     * param time : hhmm format
+     */
+    public void setTime(int time) {
+        this.time = time;
     }
 
     public int getUserID() {
