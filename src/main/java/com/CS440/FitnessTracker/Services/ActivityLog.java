@@ -3,28 +3,39 @@ package com.CS440.FitnessTracker.Services;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.CS440.FitnessTracker.Database.DatabaseManager;
 import com.CS440.FitnessTracker.Model.Activity;
 
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class ActivityLog {
+public class ActivityLog implements ActivityLogInterface {
 
-    @Autowired
-    private DataSource dataSource;
+    // @Autowired
+    // private DataSource dataSource;
+    private DatabaseManager dbManager = new DatabaseManager();
+    private DataSource dataSource = dbManager.connect();
+    
 
-
+@Override
     public  List<Activity> getActivityLog(){
+        System.out.println("datasource: " + dataSource);
+
         List<Activity> activities = new ArrayList<>();
         try {
+            System.out.println("before connection");
             Connection connection = dataSource.getConnection();
+            System.out.println("after connection");
             PreparedStatement prepStatement = connection.prepareStatement("CREATE VIEW ActivityLog\n" + 
                     "AS SELECT Routine.StartTime as StartTime, Routine.EndTime as EndTime, Exercise.Title as Title, Exercise_Entry.Sets as Sets, Exercise_Entry.Repetitions as Repetitions, Exercise_Entry.Weight as Weight, Exercise_Entry.Date as Date, Exercise_Entry.Time as Time\n" + //
                     "   FROM Routine, Exercise, Exercise_Entry");
@@ -45,9 +56,13 @@ public class ActivityLog {
      
             return activities;
         }
+        // catch(Exception e)
+        // {
+        //     System.out.println("activity log: "+ e);
+        // }
         catch(Exception e)
         {
-            System.out.println("activity log: "+ e);
+            System.out.println("activity log SQL Exception: "+ e);
         }
         return null;
     }
