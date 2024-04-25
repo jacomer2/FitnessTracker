@@ -1,19 +1,16 @@
 package com.CS440.FitnessTracker.Model;
 
-import java.time.LocalDate;
+import java.sql.Date;
+import java.sql.Time;
 
-enum Classifications {
-    YOGA,
-    DANCE,
-    CYCLING
-}
 
 public class Class {
     private int ClassID;
     private float Price;
-    private Classifications Classification;
+    private String Classification;
     private float Duration;
-    private LocalDate Date;
+    private Date Date;  
+    private Time Time;
     private int UserID;
 
     public int getClassID() {
@@ -32,11 +29,11 @@ public class Class {
         this.Price = price;
     }
 
-    public Classifications getClassification() {
+    public String getClassification() {
         return Classification;
     }
 
-    public void setClassification(Classifications classification) {
+    public void setClassification(String classification) {
         this.Classification = classification;
     }
 
@@ -48,12 +45,20 @@ public class Class {
         this.Duration = duration;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return Date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.Date = date;
+    }
+
+    public Time getTime() {
+        return Time;
+    }
+
+    public void setTime(Time time) {
+        this.Time = time;
     }
 
     public int getUserID() {

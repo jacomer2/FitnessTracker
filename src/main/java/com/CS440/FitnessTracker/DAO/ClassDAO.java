@@ -9,9 +9,11 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
 
+import org.apache.tomcat.jni.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.CS440.FitnessTracker.Model.Class;
@@ -33,8 +35,8 @@ public class ClassDao implements ClassDaoInterface{
         float Price = modelClass.getPrice();
         String Classification = modelClass.getClassification();
         float Duration = modelClass.getDuration();
-        int Date = modelClass.getDate();
-        int Time = modelClass.getTime();
+        Date Date = modelClass.getDate();
+        Time Time = modelClass.getTime();
         int UserID = modelClass.getUserID();
 
         try {
