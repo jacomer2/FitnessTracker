@@ -19,7 +19,7 @@ import com.CS440.FitnessTracker.Database.DatabaseManager;
 
 public class ClassDao implements ClassDaoInterface{
 
-
+    DatabaseManager dataSource = new DatabaseManager();
     
     /*
      * Creates a Class in the mySql database
@@ -39,7 +39,7 @@ public class ClassDao implements ClassDaoInterface{
 
         try {
 
-            Connection connection = dataSource.getConnection();
+            Connection connection = dataSource.connection();
 
             String insertQuery = "INSERT INTO class (classID,Price,Duration,UserID,Classification,Date,Time) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -81,7 +81,7 @@ public class ClassDao implements ClassDaoInterface{
 
         try {
 
-            Connection connection = dataSource.getConnection();
+            Connection connection = dataSource.connection();
 
             String getQuery = "SELECT * FROM user WHERE ClassID = ?";
             
@@ -125,7 +125,7 @@ public class ClassDao implements ClassDaoInterface{
         List<Class> classList = new ArrayList<Class>();
         try {
 
-            Connection connection = dataSource.getConnection();
+            Connection connection = dataSource.connection();
 
             String getQuery = "SELECT * FROM class";
             
@@ -198,7 +198,7 @@ public class ClassDao implements ClassDaoInterface{
 
         try {
 
-            Connection connection = dataSource.getConnection();
+            Connection connection = dataSource.connection();
 
             String updateQuery = "UPDATE class SET Price = ?, Duration = ?, Classification = ?, Date = ? WHERE UserID = ? AND ClassID = ?";
 
@@ -233,7 +233,7 @@ public class ClassDao implements ClassDaoInterface{
 
         try {
 
-            Connection connection = dataSource.getConnection();
+            Connection connection = dataSource.connection();
 
             String deleteQuery = "DELETE FROM class WHERE UserID = ? AND ClassID = ?";
 
@@ -323,7 +323,7 @@ public class ClassDao implements ClassDaoInterface{
              * Create sql query based on attribute_name
              */
 
-            Connection connection = dataSource.getConnection();
+            Connection connection = dataSource.connection();
             PreparedStatement prepStatement = null;
             //special cases: date
             if(attribute_name.equals("date"))
@@ -411,7 +411,7 @@ public class ClassDao implements ClassDaoInterface{
       
         try {
 
-            Connection connection = dataSource.getConnection();
+            Connection connection = dataSource.connection();
 
             int parseInt = Integer.parseInt(dateString);
             int nextDay = parseInt + 1;

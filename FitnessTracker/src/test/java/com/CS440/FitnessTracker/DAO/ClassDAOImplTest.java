@@ -23,6 +23,7 @@ public class ClassDAOImplTest {
 
     public static Class testClass = new Class(123, (float)20.00, "CYCLING", (float)1.0, 20240422, 1200, 123);
 
+    
     @Test
     public void testCreateClass() throws SQLException {
 
