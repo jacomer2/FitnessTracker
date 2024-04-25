@@ -89,4 +89,14 @@ public class HomeController {
 			return model;
 		}
 
+
+		@GetMapping("/createWorkout")
+		public ModelAndView createWorkout()
+		{
+			ModelAndView model = new ModelAndView();
+	
+			model.setViewName("Search");
+	
+			return model;
+		}
 }
