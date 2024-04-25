@@ -1,5 +1,6 @@
 package com.CS440.FitnessTracker.DAO;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.CS440.FitnessTracker.Model.Class;
-import com.CS440.FitnessTracker.Model.Class.Classification;
+import com.CS440.FitnessTracker.DAO.ClassDao;
 
 
 @SpringBootTest
@@ -20,40 +21,33 @@ public class ClassDAOImplTest {
     @Autowired
     private ClassDao classDao;
 
-    Class testClass = new Class(123, (float)20.00, Classification.CYCLING, (float)1.0, 1);
+    public static Class testClass = new Class(123, (float)20.00, "CYCLING", (float)1.0, 20240422, 1200, 123);
 
     @Test
     public void testCreateClass() throws SQLException {
 
-/* private int ClassID;
-    private float Price;
-    private Classification Classification;
-    private float Duration;
-    private LocalDateTime Date;
-    private int UserID; */
-
-
-        System.out.println(testClass.getUserID());
-        System.out.println(testClass.getClassification());
-        System.out.println(testClass.getClassID());
-        System.out.println(testClass.getPrice());
-        System.out.println(testClass.getDuration());
-
-
-        assertNotNull(classDao.create(testClass));
+        // .create returns 0 on success, 1 on fail
+        assertEquals((long)0,(long)classDao.create(testClass));
 
     }
 
     @Test
     public void testGetClass() {
 
-        String userID = "123";
+        String classID = "123";
+        Class retClass = null;
+        try {
+            retClass = classDao.read(testClass);
+            assertNotNull(retClass);
+            assertEquals(classID, retClass.getClassID());
 
-        Class retClass = classDao.read(testClass);
-        assertNotNull(retClass);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-        System.out.println("Returned user attributes: ");
-        System.out.printf("%d %d %s %f %s %f", retClass.getUserID(), retClass.getClassID(), String.valueOf(retClass.getClassification()), retClass.getDuration(), String.valueOf(retClass.getDate()), retClass.getPrice());
+        System.out.println("Returned user attributes from db: ");
+        System.out.printf("%d %f %s %f %d %d %d", retClass.getClassID(), retClass.getPrice(), retClass.getClassification(), retClass.getDuration(), retClass.getDate(), retClass.getTime(), retClass.getUserID());
 
     }
 

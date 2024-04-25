@@ -15,13 +15,10 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.CS440.FitnessTracker.Model.Class;
-import com.CS440.FitnessTracker.Model.Class.Classification;
-import com.mysql.cj.protocol.a.LocalDateTimeValueEncoder;
+import com.CS440.FitnessTracker.Database.DatabaseManager;
 
 public class ClassDao implements ClassDaoInterface{
 
-    @Autowired
-    private DataSource dataSource;
 
     
     /*
@@ -34,24 +31,26 @@ public class ClassDao implements ClassDaoInterface{
         // Store extracted attributes from user into variables
         int ClassID = modelClass.getClassID();
         float Price = modelClass.getPrice();
-        String Classification = modelClass.getClassification().toString();
+        String Classification = modelClass.getClassification();
         float Duration = modelClass.getDuration();
-        String Date = modelClass.getDate().toString();
+        int Date = modelClass.getDate();
+        int Time = modelClass.getTime();
         int UserID = modelClass.getUserID();
 
         try {
 
             Connection connection = dataSource.getConnection();
 
-            String insertQuery = "INSERT INTO class (classID,Price,Duration,UserID,Classification,Date) VALUES (?, ?, ?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO class (classID,Price,Duration,UserID,Classification,Date,Time) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement prepStatement = connection.prepareStatement(insertQuery);
             prepStatement.setInt(1, ClassID);
             prepStatement.setFloat(2, Price);
-            prepStatement.setString(3, Classification);
             prepStatement.setFloat(4, Duration);
-            prepStatement.setString(5, Date);       //might need adjusted, date is a DATETIME in sql
             prepStatement.setInt(6, UserID);
+            prepStatement.setString(3, Classification);
+            prepStatement.setInt(5, Date);    
+            prepStatement.setInt(7, Time);            
 
             prepStatement.executeUpdate();
 
@@ -100,16 +99,13 @@ public class ClassDao implements ClassDaoInterface{
                 modelClass.setPrice(resultTable.getFloat(2));
                 modelClass.setDuration(resultTable.getFloat(3));
                 modelClass.setUserID(resultTable.getInt(4));
-
-                String enumString = resultTable.getString(5);
-                modelClass.setClassification(Classification.valueOf(enumString));
-
-                java.sql.Timestamp DateTimeObj = resultTable.getTimestamp(6);
-                LocalDateTime Date = DateTimeObj.toLocalDateTime();
-                modelClass.setDate(Date);    //need to find correct conversions
+                modelClass.setClassification(resultTable.getString(5));
+                modelClass.setDate(resultTable.getInt(6));
+                modelClass.setTime(resultTable.getInt(7));
          
                 connection.close();
 
+                System.out.println("Class found in db: " + modelClass.getClassID());
                 return modelClass;
             }
         }

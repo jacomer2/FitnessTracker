@@ -1,7 +1,5 @@
 package com.CS440.FitnessTracker.Model;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 public class Class {
@@ -22,11 +20,13 @@ public class Class {
 
     }
 
-    public Class(int classID, float price, String classification, float duration, int userID) {
+    public Class(int classID, float price, String classification, float duration, int date, int time, int userID) {
         this.ClassID = classID;
         this.Price = price;
         this.Classification = classification;
         this.Duration = duration;
+        this.date = date;
+        this.time = time;
         this.UserID = userID;
     }
 

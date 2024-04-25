@@ -32,7 +32,7 @@ public class DatabaseManager {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
         //attempt at connection to db
-        String url = "jdbc:mysql://localhost:3306/asdfghjm]";
+        String url = "jdbc:mysql://localhost:3306/cs440";
         String username = "guest_user";
         String password = "Guest_password!1";
 
