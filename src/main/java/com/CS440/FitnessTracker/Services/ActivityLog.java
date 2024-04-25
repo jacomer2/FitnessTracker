@@ -24,7 +24,13 @@ public class ActivityLog {
     public  List<Activity> getActivityLog(){
         List<Activity> activities = new ArrayList<>();
         try {
+
+            System.out.println("Activity Log: before connection");
+
             Connection connection = dataSource.getConnection();
+
+            System.out.println("Activity Log: past connection");
+
             PreparedStatement prepStatement = connection.prepareStatement("CREATE VIEW ActivityLog\n" + 
                     "AS SELECT Routine.StartTime as StartTime, Routine.EndTime as EndTime, Exercise.Title as Title, Exercise_Entry.Sets as Sets, Exercise_Entry.Repetitions as Repetitions, Exercise_Entry.Weight as Weight, Exercise_Entry.Date as Date, Exercise_Entry.Time as Time\n" + //
                     "   FROM Routine, Exercise, Exercise_Entry");
