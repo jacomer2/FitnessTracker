@@ -1,6 +1,7 @@
 package com.CS440.FitnessTracker.Model;
 
-
+import java.sql.Date;
+import java.sql.Time;
 
 public class Class {
 
@@ -9,8 +10,8 @@ public class Class {
     private float Price;
     private String Classification; //... YOGA, CARDIO, WEIGHTS, CYCLING, POOL...
     private float Duration;
-    private int date; //has to be in yyyymmdd format
-    private int time; //has to be in hhmm format
+    private Date Date; //has to be in yyyymmdd format
+    private Time Time; //has to be in hhmm format
     private int UserID;
 
     /*
@@ -20,13 +21,13 @@ public class Class {
 
     }
 
-    public Class(int classID, float price, String classification, float duration, int date, int time, int userID) {
+    public Class(int classID, float price, String classification, float duration, Date date, Time time, int userID) {
         this.ClassID = classID;
         this.Price = price;
         this.Classification = classification;
         this.Duration = duration;
-        this.date = date;
-        this.time = time;
+        this.Date = date;
+        this.Time = time;
         this.UserID = userID;
     }
 
@@ -65,28 +66,15 @@ public class Class {
     /*
      * receives date in yyyymmdd format
      */
-    public int getDate() {
-        return date;
+    public Date getDate() {
+        return Date;
     }
 
     /*
      * param date : yyyymmdd format
      */
-    public void setDate(int date) {
-        this.date = date;
-    }
-/*
-     * receives time in hhmm format
-     */
-    public int getTime() {
-        return this.time;
-    }
-
-    /*
-     * param time : hhmm format
-     */
-    public void setTime(int time) {
-        this.time = time;
+    public void setDate(Date date) {
+        this.Date = date;
     }
 
     public Time getTime() {
