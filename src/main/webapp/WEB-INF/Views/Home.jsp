@@ -50,8 +50,8 @@
         <header>
             <h1>Fitness App</h1>
             <nav>
-                <a href="/activitylog">Today's Workouts</a>
-                <a href="#progress">Progress</a>
+                <a href="/activitylog">Workout History</a>
+                <a href="/createWorkout">Create Workout</a>
                 <a href="#community">Community</a>
                 <a href="/loginLink">LoginTest</a>
                 <a href="/sandbox">Sandbox</a>
