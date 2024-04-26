@@ -21,7 +21,7 @@ public class ExerciseDAOImplTest {
 
 
         exerciseDAO.getExerciseByFilter(mapInsert);
-
+        
     }
     
 }
