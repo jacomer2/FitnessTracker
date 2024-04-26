@@ -6,7 +6,7 @@ import java.util.List;
 public interface BasicDAOInterface<T>{
 
     //creates T
-    int create(T t) throws SQLException;
+    int insert(T t) throws SQLException;
     
     //prints and returns T info 
     T read(T t) throws SQLException;     

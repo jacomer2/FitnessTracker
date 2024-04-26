@@ -27,7 +27,7 @@ public class UserDAOImplTest {
         System.out.printf("%d\n", testUser.getUserID());
 
         System.out.println(userDAO);
-
+        
         userDAO.insertUser(testUser);
 
     }
