@@ -9,29 +9,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitness Tracker - Search</title>
     <style>
-        body {
+        /* body {
             font-family: 'Times New Roman', Times, serif;
             background-color: #f1f1f1;
             margin: 0;
             padding: 0;
+        } */
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ccc;
         }
 
-        .navbar {
-            background-color: #2922a8;
-            overflow: hidden;
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
-        .navbar a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
+        nav a {
+            margin: 0 10px;
             text-decoration: none;
-        }
-
-        .navbar a:hover {
-            background-color: #45a049;
+            color: #333;
         }
 
         .search-container {
@@ -138,22 +150,20 @@
 </head>
 
 <body>
+    <div class="container">
+    <header>
+        <h1>Fitness App</h1>
+        <nav>
+            <a href="/activitylog">Workout History</a>
+            <a href="/createWorkout">Create Workout</a>
+            <a href="#community">Community</a>
+            <a href="/loginLink">LoginTest</a>
+            <a href="/sandbox">Sandbox</a>
+            <!-- Add more navigation links if needed -->
+        </nav>
+    </header>
 
-    <div class="navbar">
-        <a href="#">Home</a>
-        <a href="#">Routine</a>
-        <a href="#">Workouts</a>
-        <a href="#">Category</a>
-    </div>
-
-    <h1>Find your workout now</h1>
-    <h2>That sounds like a useful feature!</h2>
-    <p> With categorized workout searches, users can easily find routines tailored to their specific fitness
-        goals or preferences, whether it's cardio, strength training, flexibility, or anything. It could also
-        include options like beginner-friendly workouts, high-intensity interval training (HIIT), yoga, or
-        targeted exercises for particular muscle groups. With this feature, users can efficiently discover
-        workouts that align with their fitness level, interests, and objectives, making it easier to stay
-        motivated and committed to their exercise regiment.</p>
+    <h1>Build your workout</h1>
     <hr>
     <br>
     <div class="search-container">
@@ -198,7 +208,7 @@
             </tbody>
         </table>
     </div>
-
+    </div>
 </body>
 
 </html>

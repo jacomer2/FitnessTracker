@@ -7,6 +7,8 @@ import java.sql.Time;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.CS440.FitnessTracker.Database.DatabaseManager;
 import com.CS440.FitnessTracker.Model.Activity;
 
 import javax.sql.DataSource;
@@ -17,8 +19,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ActivityLog {
 
-    @Autowired
-    private DataSource dataSource;
+    private DatabaseManager dbManager = new DatabaseManager();
+    private DataSource dataSource = dbManager.connect();
 
 
     public  List<Activity> getActivityLog(){
@@ -31,9 +33,7 @@ public class ActivityLog {
 
             System.out.println("Activity Log: past connection");
 
-            PreparedStatement prepStatement = connection.prepareStatement("CREATE VIEW ActivityLog\n" + 
-                    "AS SELECT Routine.StartTime as StartTime, Routine.EndTime as EndTime, Exercise.Title as Title, Exercise_Entry.Sets as Sets, Exercise_Entry.Repetitions as Repetitions, Exercise_Entry.Weight as Weight, Exercise_Entry.Date as Date, Exercise_Entry.Time as Time\n" + //
-                    "   FROM Routine, Exercise, Exercise_Entry");
+            PreparedStatement prepStatement = connection.prepareStatement("Select * FROM ActivityLog");
 
             ResultSet resSet = prepStatement.executeQuery();
             while(resSet.next()){
