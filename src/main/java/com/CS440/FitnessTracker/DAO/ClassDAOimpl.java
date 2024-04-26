@@ -43,7 +43,9 @@ public class ClassDAOimpl implements ClassDaoInterface{
             // Connection connection = dataSource.getConnection();
             Connection connection = DatabaseManager.connection();
 
-            String insertQuery = "INSERT INTO class (classID,Price,Duration,UserID,Classification,Date,Time) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+
+            String insertQuery = "INSERT INTO class (ClassID,Price,Classification,Duration,UserID,ClassDate,ClassTime) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement prepStatement = connection.prepareStatement(insertQuery);
             prepStatement.setInt(1, ClassID);
