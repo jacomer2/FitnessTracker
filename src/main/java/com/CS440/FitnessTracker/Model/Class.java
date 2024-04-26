@@ -89,6 +89,14 @@ public class Class {
         this.time = time;
     }
 
+    public Time getTime() {
+        return Time;
+    }
+
+    public void setTime(Time time) {
+        this.Time = time;
+    }
+
     public int getUserID() {
         return UserID;
     }
