@@ -99,4 +99,14 @@ public class HomeController {
 	
 			return model;
 		}
+
+		@GetMapping("/class")
+		public ModelAndView classHandler()
+		{
+			ModelAndView model = new ModelAndView();
+	
+			model.setViewName("Class");
+	
+			return model;
+		}
 }

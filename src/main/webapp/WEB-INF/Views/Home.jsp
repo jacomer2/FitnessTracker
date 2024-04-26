@@ -52,7 +52,7 @@
             <nav>
                 <a href="/activitylog">Workout History</a>
                 <a href="/createWorkout">Create Workout</a>
-                <a href="#community">Community</a>
+                <a href="/class">Community</a>
                 <a href="/loginLink">LoginTest</a>
                 <a href="/sandbox">Sandbox</a>
                 <!-- Add more navigation links if needed -->
