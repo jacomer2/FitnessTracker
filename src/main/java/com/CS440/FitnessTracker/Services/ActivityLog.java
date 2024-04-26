@@ -36,9 +36,7 @@ public class ActivityLog implements ActivityLogInterface {
             System.out.println("before connection");
             Connection connection = dataSource.getConnection();
             System.out.println("after connection");
-            PreparedStatement prepStatement = connection.prepareStatement("CREATE VIEW ActivityLog\n" + 
-                    "AS SELECT Routine.StartTime as StartTime, Routine.EndTime as EndTime, Exercise.Title as Title, Exercise_Entry.Sets as Sets, Exercise_Entry.Repetitions as Repetitions, Exercise_Entry.Weight as Weight, Exercise_Entry.Date as Date, Exercise_Entry.Time as Time\n" + //
-                    "   FROM Routine, Exercise, Exercise_Entry");
+            PreparedStatement prepStatement = connection.prepareStatement("Select * FROM ActivityLog");
 
             ResultSet resSet = prepStatement.executeQuery();
             while(resSet.next()){
@@ -53,7 +51,7 @@ public class ActivityLog implements ActivityLogInterface {
                 Activity activity = new Activity(date,startTime,endTime,title,sets,reps,weight,totalTime);
                 activities.add(activity);
             }
-     
+            
             return activities;
         }
         // catch(Exception e)
