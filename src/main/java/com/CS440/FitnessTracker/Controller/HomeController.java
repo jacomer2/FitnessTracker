@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.CS440.FitnessTracker.DAO.ExerciseDAO;
@@ -106,6 +107,54 @@ public class HomeController {
 			ModelAndView model = new ModelAndView();
 	
 			model.setViewName("Class");
+	
+			return model;
+		}
+
+		@PostMapping("/workoutSearch")
+		public ModelAndView workoutSearch(@RequestParam String category, @RequestParam String muscle_group, @RequestParam String difficulty)
+		{
+
+			System.out.println(category + muscle_group + difficulty);
+			
+
+			ModelAndView model = new ModelAndView();
+	
+			model.setViewName("Search");
+
+			Map<String,String> map = new HashMap<>();
+			map.put("Category", category);
+			map.put("Muscle Groups", muscle_group);
+			map.put("Difficulty", difficulty);
+
+
+			List exercises = exerciseDAO.getExerciseByFilter(map);
+	
+			model.addObject("exercises", exercises);
+	
+			return model;
+		}
+
+		@PostMapping("/inputWorkout")
+		public ModelAndView inputWorkout(@RequestParam int inputSets, @RequestParam int inputReps, @RequestParam int inputWeight)
+		{
+
+			System.out.println(inputSets + inputReps + inputWeight);
+			
+
+			ModelAndView model = new ModelAndView();
+	
+			model.setViewName("Search");
+
+			// Map<String,String> map = new HashMap<>();
+			// map.put("Category", category);
+			// map.put("Muscle Groups", muscle_group);
+			// map.put("Difficulty", difficulty);
+
+
+			// List exercises = exerciseDAO.getExerciseByFilter(map);
+	
+			// model.addObject("exercises", exercises);
 	
 			return model;
 		}

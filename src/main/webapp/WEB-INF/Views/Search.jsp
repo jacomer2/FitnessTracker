@@ -124,7 +124,7 @@
     </style>
 
     
-            <!-- <script>
+            <script>
         document.getElementById("searchForm").addEventListener("submit", function(event) {
         event.preventDefault();
 
@@ -146,7 +146,7 @@
         // Reset form
         this.reset();
         });
-        </script> -->
+        </script>
 </head>
 
 <body>
@@ -168,7 +168,7 @@
     <br>
     <div class="search-container">
         <h2>Search Fitness Tracker</h2>
-        <form id="searchForm">
+        <form id="searchForm" action="/workoutSearch" method="post">
             <select name="category" required>
                 <option value="" selected disabled>Choose category</option>
                 <option value="bodyweight">Bodyweight</option>
@@ -190,7 +190,7 @@
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
             </select>
-            <input type="text" name="description" placeholder="Description" required>
+            <!-- <input type="text" name="description" placeholder="Description" required> -->
             <input type="submit" value="Submit">
         </form>
 
@@ -198,13 +198,32 @@
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Title</th>
                     <th>Category</th>
                     <th>Muscle Group</th>
-                    <th>Difficulty</th>
-                    <th>Description</th>
+                    <th>Sets</th>
+                    <th>Reps</th>
+                    <th>Weight</th>
+
                 </tr>
             </thead>
             <tbody id="tableBody">
+                <c:forEach items="${exercises}" var="exercise" varStatus="status">
+                    <tr>
+                        <td>${exercise.getTitle()}</td>
+                        <td>${exercise.getCategory()}</td>
+                        <td>${exercise.getMuscleGroup()}</td>
+                        <td>${exercise.getDifficulty()}</td>
+
+                        <form action="/inputWorkout" method="post">
+                            <td><input type="text" name="inputSets"></td>
+                            <td><input type="text" name="inputReps"></td>
+                            <td><input type="text" name="inputWeight"></td>
+                            <!-- Optionally, you can include a submit button -->
+                            <td><input type="submit" value="Submit"></td>
+                        </form>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
     </div>
