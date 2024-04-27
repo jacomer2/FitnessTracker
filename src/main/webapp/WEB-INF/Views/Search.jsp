@@ -51,7 +51,7 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            max-width: 600px;
+            max-width: 700px;
             margin: 20px auto;
         }
 
@@ -85,17 +85,6 @@
             background-color: #45a049;
         }
 
-        h1,
-        h2,
-        h3,
-        p {
-            text-align: center;
-            /* Center align the content */
-            font-family: 'Times New Roman', Times, serif;
-            /* Change font */
-            margin-top: 20px;
-        }
-
         hr {
             margin: 20px auto;
             /* Center the horizontal rule */
@@ -121,10 +110,49 @@
         th {
             background-color: #f2f2f2;
         }
+
+        h1 a {
+            text-decoration: none;
+            color: #333;
+
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+        }
     </style>
 
     
-            <script>
+            <!-- <script>
         document.getElementById("searchForm").addEventListener("submit", function(event) {
         event.preventDefault();
 
@@ -146,13 +174,13 @@
         // Reset form
         this.reset();
         });
-        </script>
+        </script> -->
 </head>
 
 <body>
     <div class="container">
     <header>
-        <h1>Fitness App</h1>
+        <h1><a href="/">Fitness App</a></h1>
         <nav>
             <a href="/activitylog">Workout History</a>
             <a href="/createWorkout">Create Workout</a>
@@ -169,14 +197,14 @@
     <div class="search-container">
         <h2>Search Fitness Tracker</h2>
         <form id="searchForm" action="/workoutSearch" method="post">
-            <select name="category" required>
-                <option value="" selected disabled>Choose category</option>
+            <select name="category">
+                <option value="" selected>Choose category</option>
                 <option value="bodyweight">Bodyweight</option>
                 <option value="cardio">Cardio</option>
                 <option value="resistance">Resistance</option>
             </select>
-            <select name="muscle_group" required>
-                <option value="" selected disabled>Choose muscle group</option>
+            <select name="muscle_group">
+                <option value="" selected>Choose muscle group</option>
                 <option value="legs">Legs</option>
                 <option value="chest">Chest</option>
                 <option value="back">Back</option>
@@ -184,8 +212,8 @@
                 <option value="core">Core</option>
                 <option value="shoulders">Shoulders</option>
             </select>
-            <select name="difficulty" required>
-                <option value="" selected disabled>Choose difficulty</option>
+            <select name="difficulty">
+                <option value="" selected>Choose difficulty</option>
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
@@ -197,10 +225,10 @@
         <table id="dataTable">
             <thead>
                 <tr>
-                    <th>#</th>
                     <th>Title</th>
                     <th>Category</th>
                     <th>Muscle Group</th>
+                    <th>Difficulty</th>
                     <th>Sets</th>
                     <th>Reps</th>
                     <th>Weight</th>
@@ -216,6 +244,7 @@
                         <td>${exercise.getDifficulty()}</td>
 
                         <form action="/inputWorkout" method="post">
+                            <input type="hidden" name="exerciseID" value="${exercise.getExerciseID()}">
                             <td><input type="text" name="inputSets"></td>
                             <td><input type="text" name="inputReps"></td>
                             <td><input type="text" name="inputWeight"></td>

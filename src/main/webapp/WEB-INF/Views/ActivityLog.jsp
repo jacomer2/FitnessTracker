@@ -43,12 +43,17 @@
             text-decoration: none;
             color: #333;
         }
+
+        h1 a {
+            text-decoration: none;
+            color: #333;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Fitness App</h1>
+            <h1 class="header-link"><a href="/">Fitness App</a></h1>
             <nav>
                 <a href="/activitylog">Today's Workouts</a>
                 <a href="#progress">Progress</a>

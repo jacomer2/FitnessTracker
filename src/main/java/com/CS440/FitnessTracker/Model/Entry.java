@@ -9,19 +9,23 @@ public class Entry {
     private int Sets;
     private int Repetitions;
     private float Weight;
-    private int Time;
+    private Date Date;
+    private Time Time;
+    private int Length;
     private int UserID;
     private int ExerciseID;
     private int RoutineID;
 
-    public Entry(int EntryID, int Sets, int Repetitions, float Weight, int Time, int UserID, int ExerciseID, int RoutineID){
+    public Entry(int EntryID, int Sets, int Repetitions, float Weight, Date Date, Time Time, int Length, int UserID, int ExerciseID, int RoutineID){
 
 
         this.EntryID = EntryID;
         this.Sets = Sets;
         this.Repetitions = Repetitions;
         this.Weight = Weight;
+        this.Date = Date;
         this.Time = Time;
+        this.Length = Length;
         this.UserID = UserID;
         this.ExerciseID = ExerciseID;
         this.RoutineID = RoutineID;
@@ -59,13 +63,29 @@ public class Entry {
         this.Weight = weight;
     }
 
+    public Date getDate() {
+        return Date;
+    }
 
-    public int getTime() {
+    public void setDate(Date date) {
+        this.Date = date;
+    }
+
+    public Time getTime() {
         return Time;
     }
 
-    public void setTime(int time) {
+    public void setTime(Time time) {
         this.Time = time;
+    }
+
+
+    public int getLength() {
+        return Length;
+    }
+
+    public void setLength(int length) {
+        this.Length = length;
     }
 
     public int getUserID() {

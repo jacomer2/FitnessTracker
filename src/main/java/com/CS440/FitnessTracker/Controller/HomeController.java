@@ -123,9 +123,15 @@ public class HomeController {
 			model.setViewName("Search");
 
 			Map<String,String> map = new HashMap<>();
-			map.put("Category", category);
-			map.put("Muscle Groups", muscle_group);
-			map.put("Difficulty", difficulty);
+			if (category != "")  {
+				map.put("Category", category);
+			}
+			if (muscle_group != "") {
+				map.put("Muscle Groups", muscle_group);
+			}
+			if (difficulty != "") {
+				map.put("Difficulty", difficulty);
+			}
 
 
 			List exercises = exerciseDAO.getExerciseByFilter(map);
@@ -136,25 +142,17 @@ public class HomeController {
 		}
 
 		@PostMapping("/inputWorkout")
-		public ModelAndView inputWorkout(@RequestParam int inputSets, @RequestParam int inputReps, @RequestParam int inputWeight)
+		public ModelAndView inputWorkout(@RequestParam int exerciseID, @RequestParam int inputSets, @RequestParam int inputReps, @RequestParam int inputWeight)
 		{
 
 			System.out.println(inputSets + inputReps + inputWeight);
+
+			System.out.println(exerciseID);
 			
 
 			ModelAndView model = new ModelAndView();
 	
 			model.setViewName("Search");
-
-			// Map<String,String> map = new HashMap<>();
-			// map.put("Category", category);
-			// map.put("Muscle Groups", muscle_group);
-			// map.put("Difficulty", difficulty);
-
-
-			// List exercises = exerciseDAO.getExerciseByFilter(map);
-	
-			// model.addObject("exercises", exercises);
 	
 			return model;
 		}

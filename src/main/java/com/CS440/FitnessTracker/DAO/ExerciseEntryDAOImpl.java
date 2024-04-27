@@ -30,7 +30,8 @@ public class ExerciseEntryDAOImpl implements ExerciseEntryDAO {
         int repetitions;
         float weight;
         Date date;
-        int time;
+        Time time;
+        int length;
         int exerciseID;
         int routineID;
 
@@ -57,13 +58,15 @@ public class ExerciseEntryDAOImpl implements ExerciseEntryDAO {
                         sets = resultTable.getInt(2);
                         repetitions = resultTable.getInt(3);
                         weight = resultTable.getInt(4);
-                        time = resultTable.getInt(6);
-                        userID = resultTable.getInt(7);
-                        exerciseID = resultTable.getInt(7);
-                        routineID = resultTable.getInt(7);
+                        date = resultTable.getDate(5);
+                        time = resultTable.getTime(6);
+                        length = resultTable.getInt(7);
+                        userID = resultTable.getInt(8);
+                        exerciseID = resultTable.getInt(9);
+                        routineID = resultTable.getInt(10);
 
         
-                       retrievedEntry = new Entry(entryID, sets, repetitions, weight, time, userID, exerciseID, routineID);
+                       retrievedEntry = new Entry(entryID, sets, repetitions, weight, date, time, length, userID, exerciseID, routineID);
                     
                        retrievedEntries.add(retrievedEntry);
                     
@@ -82,11 +85,12 @@ public class ExerciseEntryDAOImpl implements ExerciseEntryDAO {
             return null;
     }
 
-    public void setEntry(@RequestParam int sets, @RequestParam int reps, @RequestParam int weight) {
+    public void setEntry(@RequestParam int exerciseID, @RequestParam int sets, @RequestParam int reps, @RequestParam int weight) {
         
         LocalDate currentDate = LocalDate.now();
-
         Date date = Date.valueOf(currentDate);
+
+
     }
         
 }
