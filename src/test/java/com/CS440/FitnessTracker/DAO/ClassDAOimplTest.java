@@ -1,6 +1,7 @@
 package com.CS440.FitnessTracker.DAO;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -21,35 +22,54 @@ public class ClassDAOimplTest {
     // @Autowired
     // private ClassDAOimpl classDAO;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    //create model class 
+    Class model = new Class();     
     
+    //create date varible to input into class
+    java.sql.Date now = new java.sql.Date(0);
+
+    /*
+     * set model attributes
+     */
+    public void setModelAttributes(Class model){
+        
+        model.setClassID(123);
+        model.setPrice(10);
+        model.setClassification("YOGA");
+        model.setDuration(60);
+        model.setUserID(1);
+        model.setDate(now);
+        model.setTime(0000);
+    }
+
+
     @Test
     public void testInsert() throws SQLException {
 
+        setModelAttributes(model);
         ClassDAOimpl classDAO = new ClassDAOimpl();
-
-        //create model class to insert into db
-        Class class1 = new Class();
-
-        //should convert java.util.Date to java.sql.Date here
-        java.sql.Date now = new java.sql.Date(0);
-        
-        
-
-        class1.setClassID(0);
-        class1.setPrice(10);
-        class1.setClassification("YOGA");
-        class1.setDuration(60);
-        class1.setUserID(1);
-        class1.setDate(now);
-        class1.setTime(0000);
 
     
 // .insert returns 0 if successful
-        assertEquals(0, classDAO.insert(class1));
-
-
-        
+        assertEquals(0, classDAO.insert(model));
     }
-    
+
+
+    @Test
+    public void testRead() throws SQLException {
+
+        setModelAttributes(model);
+
+        ClassDAOimpl classDAO = new ClassDAOimpl();
+
+        //call read
+        Class retrievedClass = classDAO.read(model);
+        
+        assertNotNull(retrievedClass);
+        //check if the class retrieved is the same as the class inserted
+        assertEquals(retrievedClass.getClassID(), retrievedClass.getClassID());
+        assertEquals(retrievedClass.getClassification(), retrievedClass.getClassification());
+        assertEquals(retrievedClass.getDate(), retrievedClass.getDate());
+        assertEquals(retrievedClass.getUserID(), retrievedClass.getUserID());
+    }
 }

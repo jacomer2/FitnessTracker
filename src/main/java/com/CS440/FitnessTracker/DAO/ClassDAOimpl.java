@@ -26,6 +26,7 @@ public class ClassDAOimpl implements ClassDaoInterface{
      * Creates a Class in the mySql database
      * returns 0 on success
      * returns 1 on failure
+     * Finally works, please lmk if you change anything
      */
     @Override
     public int insert(Class modelClass) throws SQLException {
@@ -80,29 +81,38 @@ public class ClassDAOimpl implements ClassDaoInterface{
     public Class read(Class retrieveClass) throws SQLException {
         //init class object to return
         Class modelClass = new Class();
+        System.out.println("Searching for class with ID: " + retrieveClass.getClassID() );
 
         try {
 
-            Connection connection = dataSource.getConnection();
+            // Connection connection = dataSource.getConnection();
+            Connection connection = DatabaseManager.connection();
 
-            String getQuery = "SELECT * FROM user WHERE ClassID = ?";
+            String getQuery = "SELECT ClassID,Price,Classification,Duration,UserID,ClassDate,ClassTime FROM Class WHERE ClassID = ?";
             
             PreparedStatement prepStatement = connection.prepareStatement(getQuery);
-            prepStatement.setInt(1, retrieveClass.getClassID());
-           
+            prepStatement.setInt(1, retrieveClass.getClassID() );
+            System.out.println("[In try/catch]Searching for class with ID: " + retrieveClass.getClassID() );
 
             //execute
             ResultSet resultTable = prepStatement.executeQuery();
 
             // store values returned from db into user object
-            if (resultTable.next()) {
+            while (resultTable.next()) {
 
-                modelClass.setClassID(resultTable.getInt(1));
+                int id = resultTable.getInt(1);
+                System.out.println("...\n" + "...\n" + "RECEIVED FROM RESULT TABLE : " + id  + "...\n" + "...\n");
+
+                modelClass.setClassID(id);
+
+                System.out.println("...\n" + "...\n" + "RECEIVED FROM RESULT TABLE : " + id  + "...\n" + "...\n");
+
+
                 modelClass.setPrice(resultTable.getFloat(2));
-                modelClass.setDuration(resultTable.getFloat(3));
-                modelClass.setUserID(resultTable.getInt(4));
-                modelClass.setClassification(resultTable.getString(5));
-                modelClass.setDate(resultTable.getInt(6));
+                modelClass.setClassification(resultTable.getString(3));
+                modelClass.setDuration(resultTable.getFloat(4));
+                modelClass.setUserID(resultTable.getInt(5));
+                modelClass.setDate(resultTable.getDate(6));
                 modelClass.setTime(resultTable.getInt(7));
          
                 connection.close();
@@ -114,7 +124,12 @@ public class ClassDAOimpl implements ClassDaoInterface{
         catch(Exception e)
         {
             System.out.println(e);
+            System.out.println("ClassID not found in db: " + retrieveClass.getClassID());
+            
+            return null;
         }
+
+        System.out.println("ClassID not found in db: " + retrieveClass.getClassID());
 
         return null;
 
@@ -141,16 +156,11 @@ public class ClassDAOimpl implements ClassDaoInterface{
                 Class modelClass = new Class();
                 modelClass.setClassID(resultTable.getInt(1));
                 modelClass.setPrice(resultTable.getFloat(2));
-                modelClass.setDuration(resultTable.getFloat(3));
-                modelClass.setUserID(resultTable.getInt(4));
-
-                String enumString = resultTable.getString(5);
-                modelClass.setClassification(Classification.valueOf(enumString));
-
-                java.sql.Timestamp DateTimeObj = resultTable.getTimestamp(6);
-                LocalDateTime Date = DateTimeObj.toLocalDateTime();
-                modelClass.setDate(Date);    //need to find correct conversions
-
+                modelClass.setClassification(resultTable.getString(3));
+                modelClass.setDuration(resultTable.getFloat(4));
+                modelClass.setUserID(resultTable.getInt(5));
+                modelClass.setDate(resultTable.getDate(6));
+                modelClass.setTime(resultTable.getInt(7));
                 classList.add(modelClass);
             }
             

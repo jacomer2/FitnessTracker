@@ -23,7 +23,7 @@ public class Class {
     /*
      * model reflects the same order in mysql
      */
-    public Class(int classID, float price, String classification, float duration, java.sql.Date date, int time, int userID) {
+    public Class(int classID, float price, String classification, float duration, int userID, java.sql.Date date, int time) {
         this.ClassID = classID;
         this.Price = price;
         this.Classification = classification;
