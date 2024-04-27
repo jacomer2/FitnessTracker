@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.CS440.FitnessTracker.Model.Entry;
 
@@ -78,6 +80,13 @@ public class ExerciseEntryDAOImpl implements ExerciseEntryDAO {
                 }
             
             return null;
+    }
+
+    public void setEntry(@RequestParam int sets, @RequestParam int reps, @RequestParam int weight) {
+        
+        LocalDate currentDate = LocalDate.now();
+
+        Date date = Date.valueOf(currentDate);
     }
         
 }
