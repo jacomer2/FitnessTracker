@@ -39,7 +39,7 @@ public class ClassDAOimpl implements ClassDaoInterface{
         java.sql.Date Date = modelClass.getDate();
         int Time = modelClass.getTime();
 
-        try {
+        try { 
 
             // Connection connection = dataSource.getConnection();    //alternate datasource connection
             Connection connection = DatabaseManager.connection();
@@ -314,7 +314,8 @@ public class ClassDAOimpl implements ClassDaoInterface{
         ArrayList<com.CS440.FitnessTracker.Model.Class> classList = new ArrayList<com.CS440.FitnessTracker.Model.Class>();
         String formattedStr;
         int formattedInt;
-        double formattedDouble;
+        double formattedFloat;
+        java.sql.Date formattedDate;
         //validate attribute_name
         if(attribute_name != "date"
             && attribute_name != "classification" 
@@ -328,107 +329,115 @@ public class ClassDAOimpl implements ClassDaoInterface{
 
     //validate value and format value before prepared statement:
     if(attribute_name == "userID" || attribute_name == "classID" )
+    {
+        if(! (value instanceof Integer))
         {
-            if(! (value instanceof Integer))
-            {
-                throw new IllegalArgumentException("Invalid value type for userID, must be of class Integer. Value received: " + value);
-            }
+            throw new IllegalArgumentException("Invalid value type for userID, must be of class Integer. Value received: " + value);
+        }
+        else{
             formattedInt = Integer.parseInt(value.toString());
-
         }
-        else if(attribute_name == "price" || attribute_name == "duration")
+
+    }
+    else if(attribute_name == "price" || attribute_name == "duration")
+    {
+        if(value instanceof Float)
         {
-            if(value instanceof Float)
-            {
-                DecimalFormat df = new DecimalFormat("#.##");
-                df.setRoundingMode(java.math.RoundingMode.DOWN); // Set rounding mode to DOWN
-                formattedStr = df.format(value);
-                formattedDouble = Double.parseDouble(formattedStr);
-                System.out.println("FORMATTED NUMBER: " + value + " to: " + formattedDouble); 
-            }
-            else if( value instanceof String){
-                formattedStr = value.toString();
-            }
-            else if(value instanceof Date){
-                continue;
-            }
-            else
-            {
-                throw new IllegalArgumentException("Invalid value for price: " + value);
-            }
+            DecimalFormat df = new DecimalFormat("#.##");
+            df.setRoundingMode(java.math.RoundingMode.DOWN); // Set rounding mode to DOWN
+            formattedStr = df.format(value);
+            formattedFloat = Float.parseFloat(formattedStr);
+            System.out.println("FORMATTED NUMBER: " + value + " to: " + formattedFloat); 
         }
+            else{
+                throw new IllegalArgumentException("Invalid value type for price/duration, must be of class Float. Value received: " + value);
+        }
+    }
+    else if( value instanceof String){
+        formattedStr = value.toString();
+    }
+    else if(value instanceof Date){
+        formattedDate = (java.sql.Date)value;
+    }
+    else
+    {
+        throw new IllegalArgumentException("Invalid value for price: " + value);
+    }
+    
 
 
-        try {
-            /*
-             * Create sql query based on attribute_name
-             */
+    try {
+        /*
+            * Create sql query based on attribute_name
+            */
 
-             Connection connection = dataSource.getConnection();
-             PreparedStatement prepStatement = null;
-            //special cases: date
-            if(attribute_name.equals("date"))
-            {
-
-                String getQuery = "Select * from test where date >= '?'";
-                
-                prepStatement = connection.prepareStatement(getQuery);
-                prepStatement.setDate(1, (Date)value);
-            }
-            else
-            {
-                String getQuery = "Select * from test where ? = '?'";
-                prepStatement = connection.prepareStatement(getQuery);
-
-                prepStatement.setString(1, attribute_name);
-
-                /*
-                 * set value type based on attribute_name
-                 */
-                if(attribute_name == "price" ||| attribute_name == "duration")
-                {
-                    prepStatement.setDouble(2, formattedDouble);
-                }
-                else if(attribute_name == "userID" || attribute_name == "classID")
-                {
-                    prepStatement.setInt(2, formattedInt);
-                }
-                else    //case : value object is a classification
-                {
-                    prepStatement.setString(2, value.toString());
-                }
-            }
-
-            //execute
-            ResultSet resultTable = prepStatement.executeQuery();
-
-            // store values returned from db into user object
-            while (resultTable.next()) {
-
-                Class modelClass = new Class();
-
-                modelClass.setClassID(resultTable.getInt(1));
-                modelClass.setPrice(resultTable.getFloat(2));
-                modelClass.setDuration(resultTable.getFloat(3));
-                modelClass.setUserID(resultTable.getInt(4));
-                modelClass.setClassification(resultTable.getString(5));
-                modelClass.setTime(resultTable.getTime(6));
-                modelClass.setDate(resultTable.getDate(7));
-               
-         
-
-                classList.add(modelClass);
-            }                
+   //         Connection connection = dataSource.getConnection();
+            Connection connection = DatabaseManager.connection();
             
-            connection.close();
-        }
-        catch(Exception e)
+            PreparedStatement prepStatement = null;
+        //special cases: date
+        if(attribute_name.equals("date"))
         {
-            System.out.println(e);
+
+            String getQuery = "Select * from test where date >= '?'";
+            
+            prepStatement = connection.prepareStatement(getQuery);
+            prepStatement.setDate(1, (Date)value);
+        }
+        else
+        {
+            String getQuery = "Select * from test where ? = '?'";
+            prepStatement = connection.prepareStatement(getQuery);
+
+            prepStatement.setString(1, attribute_name);
+
+            /*
+                * set value type based on attribute_name
+                */
+            if(attribute_name == "price" ||| attribute_name == "duration")
+            {
+                prepStatement.setDouble(2, formattedFloat);
+            }
+            else if(attribute_name == "userID" || attribute_name == "classID")
+            {
+                prepStatement.setInt(2, formattedInt);
+            }
+            else    //case : value object is a classification
+            {
+                prepStatement.setString(2, value.toString());
+            }
         }
 
+        //execute
+        ResultSet resultTable = prepStatement.executeQuery();
 
-        return classList;
+        // store values returned from db into user object
+        while (resultTable.next()) {
+
+            Class modelClass = new Class();
+
+            modelClass.setClassID(resultTable.getInt(1));
+            modelClass.setPrice(resultTable.getFloat(2));
+            modelClass.setDuration(resultTable.getFloat(3));
+            modelClass.setUserID(resultTable.getInt(4));
+            modelClass.setClassification(resultTable.getString(5));
+            modelClass.setTime(resultTable.getInt(6));
+            modelClass.setDate(resultTable.getDate(7));
+            
+        
+
+            classList.add(modelClass);
+        }                
+        
+        connection.close();
+    }
+    catch(Exception e)
+    {
+        System.out.println(e);
+    }
+
+
+    return classList;
 
     }
     
