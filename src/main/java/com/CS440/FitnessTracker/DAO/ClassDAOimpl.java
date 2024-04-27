@@ -41,7 +41,7 @@ public class ClassDAOimpl implements ClassDaoInterface{
 
         try {
 
-            // Connection connection = dataSource.getConnection();
+            // Connection connection = dataSource.getConnection();    //alternate datasource connection
             Connection connection = DatabaseManager.connection();
 
 
@@ -85,7 +85,7 @@ public class ClassDAOimpl implements ClassDaoInterface{
 
         try {
 
-            // Connection connection = dataSource.getConnection();
+            // Connection connection = dataSource.getConnection();    //alternate datasource connection
             Connection connection = DatabaseManager.connection();
 
             String getQuery = "SELECT ClassID,Price,Classification,Duration,UserID,ClassDate,ClassTime FROM Class WHERE ClassID = ?";
@@ -140,9 +140,11 @@ public class ClassDAOimpl implements ClassDaoInterface{
     public List<Class> readAll() throws SQLException {
         //init class list obj to return
         List<Class> classList = new ArrayList<Class>();
+        
         try {
 
-            Connection connection = dataSource.getConnection();
+ //           Connection connection = dataSource.getConnection();      //alternate datasource connection
+            Connection connection = DatabaseManager.connection();
 
             String getQuery = "SELECT * FROM class";
             
@@ -152,8 +154,9 @@ public class ClassDAOimpl implements ClassDaoInterface{
             ResultSet resultTable = prepStatement.executeQuery();
 
             // store values returned from db into user object
-            if (resultTable.next()) {
+            while (resultTable.next()) {
                 Class modelClass = new Class();
+
                 modelClass.setClassID(resultTable.getInt(1));
                 modelClass.setPrice(resultTable.getFloat(2));
                 modelClass.setClassification(resultTable.getString(3));
@@ -161,6 +164,8 @@ public class ClassDAOimpl implements ClassDaoInterface{
                 modelClass.setUserID(resultTable.getInt(5));
                 modelClass.setDate(resultTable.getDate(6));
                 modelClass.setTime(resultTable.getInt(7));
+
+                System.out.println(".\n.\n.\n About to add class to list: " + modelClass.getClassID() + "\n.\n.\n.");
                 classList.add(modelClass);
             }
             
@@ -189,7 +194,7 @@ public class ClassDAOimpl implements ClassDaoInterface{
         float duration = modelClass.getDuration();
         String classification = modelClass.getClassification(); 
         Date date = modelClass.getDate();
-        Time time = modelClass.getTime();
+        int time = modelClass.getTime();
 
 
         /*

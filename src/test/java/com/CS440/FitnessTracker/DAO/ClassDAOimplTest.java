@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
@@ -71,5 +72,18 @@ public class ClassDAOimplTest {
         assertEquals(retrievedClass.getClassification(), retrievedClass.getClassification());
         assertEquals(retrievedClass.getDate(), retrievedClass.getDate());
         assertEquals(retrievedClass.getUserID(), retrievedClass.getUserID());
+    }
+
+    @Test
+    public void testReadAll() throws SQLException {
+
+        ClassDAOimpl classDAO = new ClassDAOimpl();
+
+        //call readAll
+        List<Class> retrievedClasses = classDAO.readAll();
+        
+        assertNotNull(retrievedClasses);
+        //check if the class retrieved is the same as the class inserted
+
     }
 }
