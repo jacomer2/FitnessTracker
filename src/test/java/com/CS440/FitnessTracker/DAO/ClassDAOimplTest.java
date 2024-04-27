@@ -101,4 +101,12 @@ public class ClassDAOimplTest {
         assertEquals("CYCLING", classDAO.read(model).getClassification());
     }
 
+    @Test
+    public void testDelete() throws SQLException {
+
+        ClassDAOimpl classDAO = new ClassDAOimpl();
+
+        //call delete
+        assertEquals(0, classDAO.delete(0,1));
+    }
 }

@@ -254,7 +254,8 @@ public class ClassDAOimpl implements ClassDaoInterface{
 
         try {
 
-            Connection connection = dataSource.getConnection();
+//            Connection connection = dataSource.getConnection(); //alternate datasource connection
+            Connection connection = DatabaseManager.connection();
 
             String deleteQuery = "DELETE FROM class WHERE UserID = ? AND ClassID = ?";
 
@@ -272,6 +273,33 @@ public class ClassDAOimpl implements ClassDaoInterface{
             System.out.println(e);
         }
         return 1; //fail
+    }
+
+    public int delete(int classID, int userID) throws SQLException {
+        //get user id
+
+        try {
+            Connection connection = DatabaseManager.connection();
+//            Connection connection = dataSource.getConnection(); //alternate datasource connection
+
+            String deleteQuery = "DELETE FROM class WHERE UserID = ? AND ClassID = ?";
+
+            PreparedStatement prepStatement = connection.prepareStatement(deleteQuery);
+            prepStatement.setInt(1, userID);
+            prepStatement.setInt(2, classID);
+
+            prepStatement.executeUpdate();
+
+            connection.close();
+            return 0; //success
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            return 1; //fail
+
+        }
+
     }
 
 
