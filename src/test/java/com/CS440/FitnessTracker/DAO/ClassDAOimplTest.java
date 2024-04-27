@@ -86,4 +86,19 @@ public class ClassDAOimplTest {
         //check if the class retrieved is the same as the class inserted
 
     }
+
+    @Test
+    public void testUpdate() throws SQLException {
+
+        setModelAttributes(model);
+        model.setClassification("CYCLING");
+        int classChanged = model.getClassID();
+
+        ClassDAOimpl classDAO = new ClassDAOimpl();
+
+        //call update
+        assertEquals(0, classDAO.update(model));
+        assertEquals("CYCLING", classDAO.read(model).getClassification());
+    }
+
 }

@@ -200,6 +200,7 @@ public class ClassDAOimpl implements ClassDaoInterface{
         /*
          * validate attributes
          */
+        /*
         if(price < 0 || duration < 0 || userID < 0 || classID < 0){
             throw new IllegalArgumentException("Invalid attribute value in one of the following attributes: " + price + " " + duration + " " + userID + " " + classID);
         }
@@ -211,20 +212,24 @@ public class ClassDAOimpl implements ClassDaoInterface{
         {
             throw new IllegalArgumentException("Invalid date: " + date + "\nMust be in format 'YYYYMMDD'");
         }
+        */
 
         try {
+                
+                Connection connection = DatabaseManager.connection();
+//            Connection connection = dataSource.getConnection();  //alternate datasource connection
 
-            Connection connection = dataSource.getConnection();
-
-            String updateQuery = "UPDATE class SET Price = ?, Duration = ?, Classification = ?, Date = ? WHERE UserID = ? AND ClassID = ?";
+            String updateQuery = "UPDATE class SET Price = ?, Duration = ?, Classification = ?, ClassDate = ?, ClassTime = ? WHERE UserID = ? AND ClassID = ?";
 
             PreparedStatement prepStatement = connection.prepareStatement(updateQuery);
             prepStatement.setFloat(1, price);
             prepStatement.setFloat(2, duration);
             prepStatement.setString(3, classification.toString());
             prepStatement.setDate(4, date);
-            prepStatement.setInt(5, userID);
-            prepStatement.setInt(6, classID);
+            prepStatement.setInt(5, time);
+            prepStatement.setInt(6, userID);
+            prepStatement.setInt(7, classID);
+
 
             prepStatement.executeUpdate();
 
