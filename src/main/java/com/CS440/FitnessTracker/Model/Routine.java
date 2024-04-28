@@ -1,11 +1,12 @@
 package com.CS440.FitnessTracker.Model;
 
-import java.time.LocalDateTime;
+import java.sql.Time;
 
 public class Routine {
     private int RoutineID;
-    private LocalDateTime StartTime;
-    private LocalDateTime EndTime;
+    private Time StartTime;
+    private Time EndTime;
+
 
     public int getRoutineID() {
         return RoutineID;
@@ -15,19 +16,24 @@ public class Routine {
         this.RoutineID = routineID;
     }
 
-    public LocalDateTime getStartTime() {
+    public Time getStartTime() {
         return StartTime;
     }
 
-    public void setStartTime(LocalDateTime starTime) {
+    public void setStartTime(Time starTime) {
         this.StartTime = starTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public void setStartTime(long time)
+    {
+        this.StartTime = new Time(time);
+    }
+
+    public Time getEndTime() {
         return EndTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(Time endTime) {
         this.EndTime = endTime;
     }
 
