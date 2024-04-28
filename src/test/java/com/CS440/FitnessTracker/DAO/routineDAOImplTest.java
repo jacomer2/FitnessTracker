@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -47,66 +48,37 @@ public class routineDAOImplTest {
     public void testInsert() throws SQLException {
 
         setModelAttributes(model);
-        routineDAO routineDAO = new routineDAO();
+        RoutineDAOImpl dao = new RoutineDAOImpl();
 
     
-// .insert returns 0 if successful
-        assertEquals(0, classDAO.insert(model));
+// .create returns 0 if successful
+        assertEquals(0, dao.create(model));
     }
-
-
+    
     @Test
     public void testRead() throws SQLException {
-
-        setModelAttributes(model);
-
-        ClassDAOimpl classDAO = new ClassDAOimpl();
-
-        //call read
-        Class retrievedClass = classDAO.read(model);
-        
-        assertNotNull(retrievedClass);
-        //check if the class retrieved is the same as the class inserted
-        assertEquals(retrievedClass.getClassID(), retrievedClass.getClassID());
-        assertEquals(retrievedClass.getClassification(), retrievedClass.getClassification());
-        assertEquals(retrievedClass.getDate(), retrievedClass.getDate());
-        assertEquals(retrievedClass.getUserID(), retrievedClass.getUserID());
-    }
-
-    @Test
-    public void testReadAll() throws SQLException {
-
-        ClassDAOimpl classDAO = new ClassDAOimpl();
-
-        //call readAll
-        List<Class> retrievedClasses = classDAO.readAll();
-        
-        assertNotNull(retrievedClasses);
-        //check if the class retrieved is the same as the class inserted
-
+        RoutineDAOImpl dao = new RoutineDAOImpl();
+        Routine retModel = dao.read(123);
+        assertNotNull(retModel);
+        assertEquals(123, retModel.getRoutineID());
     }
 
     @Test
     public void testUpdate() throws SQLException {
-
+        Date date = new Date(0L);
+        RoutineDAOImpl dao = new RoutineDAOImpl();
         setModelAttributes(model);
-        model.setClassification("CYCLING");
-        int classChanged = model.getClassID();
-
-        ClassDAOimpl classDAO = new ClassDAOimpl();
-
-        //call update
-        assertEquals(0, classDAO.update(model));
-        assertEquals("CYCLING", classDAO.read(model).getClassification());
+        Time updatedTime = new Time(date.getTime());
+        model.setStartTime(updatedTime);   
+        assertEquals(0, dao.update(model));
+        assertEquals(updatedTime,dao.read(123).getStartTime());
     }
 
     @Test
     public void testDelete() throws SQLException {
-
-        ClassDAOimpl classDAO = new ClassDAOimpl();
-
-        //call delete
-        assertEquals(0, classDAO.delete(0,1));
+        RoutineDAOImpl dao = new RoutineDAOImpl();
+        assertEquals(0, dao.delete(123));
+        
     }
-}
+
 }

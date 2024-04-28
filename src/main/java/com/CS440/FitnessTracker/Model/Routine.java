@@ -24,6 +24,11 @@ public class Routine {
         this.StartTime = starTime;
     }
 
+    public void setStartTime(long time)
+    {
+        this.StartTime = new Time(time);
+    }
+
     public Time getEndTime() {
         return EndTime;
     }

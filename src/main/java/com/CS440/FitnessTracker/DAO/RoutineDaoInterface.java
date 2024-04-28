@@ -4,9 +4,9 @@ import com.CS440.FitnessTracker.Model.Routine;
 
 public interface RoutineDaoInterface {
 
-    int createRoutine(Routine routine);
-    Routine readRoutine(int routineID);
-    int updateRoutine(Routine routine);
-    int deleteRoutine(int routineID);
+    int create(Routine routine);
+    Routine read(int routineID);
+    int update(Routine routine);
+    int delete(int routineID);
 
 }

@@ -15,7 +15,7 @@ import com.CS440.FitnessTracker.Model.Routine;
 public class RoutineDAOImpl implements RoutineDaoInterface{
 
     @Override
-    public int createRoutine(Routine model) {
+    public int create(Routine model) {
         
     //    @Autowired
    //      private DataSource dataSource;
@@ -49,7 +49,7 @@ try {
     }
 
     @Override
-    public Routine readRoutine(int routineID) {
+    public Routine read(int routineID) {
             //    @Autowired
    //      private DataSource dataSource;
      // Connection connection = dataSource.getConnection();    //alternate datasource connection
@@ -79,22 +79,27 @@ try {
 
                 int id = resultTable.getInt(1);
 
-                retRoutine.setRoutineID(resultTable.getInt(1));
+                retRoutine.setRoutineID(id);
                 retRoutine.setStartTime(resultTable.getTime(2));
                 retRoutine.setEndTime(resultTable.getTime(3));
          
                 connection.close();
                 return retRoutine; //success
+            }
         }
         catch(Exception e)
         {
             System.out.println(e);
-            return null; //fail
-        }  
+
+            
+        }  Routine nullRoutine = new Routine();
+            nullRoutine.setRoutineID(-1);
+        return nullRoutine; //fail
+
     }
 
     @Override
-    public int updateRoutine(Routine routine) {
+    public int update(Routine routine) {
             //    @Autowired
    //      private DataSource dataSource;
   
@@ -108,11 +113,11 @@ try {
             Connection connection = DatabaseManager.connection();
 //            Connection connection = dataSource.getConnection();  //alternate datasource connection
 
-        String updateQuery = "UPDATE routine SET routineID = ?, startTime = ?, endTime = ? WHERE routineID = ?";
+        String updateQuery = "UPDATE routine SET startTime = ?, endTime = ? WHERE routineID = ?";
         PreparedStatement prepStatement = connection.prepareStatement(updateQuery);
-        prepStatement.setInt(1, routineID);
-        prepStatement.setTime(2, startTime);
-        prepStatement.setTime(3, endTime);
+        prepStatement.setTime(1, startTime);
+        prepStatement.setTime(2, endTime);
+        prepStatement.setInt(3, routineID);
         prepStatement.executeUpdate();
 
         connection.close();
@@ -129,7 +134,7 @@ try {
     }
 
     @Override
-    public int deleteRoutine(int routineID) {
+    public int delete(int routineID) {
 
             //    @Autowired
    //      private DataSource dataSource;
