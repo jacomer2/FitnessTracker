@@ -54,7 +54,6 @@
                 <a href="/createWorkout">Create Workout</a>
                 <a href="/class">Community</a>
                 <a href="/loginLink">LoginTest</a>
-                <a href="/sandbox">Sandbox</a>
                 <!-- Add more navigation links if needed -->
             </nav>
         </header>

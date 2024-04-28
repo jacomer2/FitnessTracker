@@ -1,7 +1,6 @@
 package com.CS440.FitnessTracker.Model;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
 
 public class Class {
 
@@ -10,8 +9,8 @@ public class Class {
     private float Price;
     private String Classification; //... YOGA, CARDIO, WEIGHTS, CYCLING, POOL...
     private float Duration;
-    private Date Date; //has to be in yyyymmdd format
-    private Time Time; //has to be in hhmm format
+    private java.sql.Date Date; //has to be in yyyymmdd format
+    private int Time; //has to be in hhmm format
     private int UserID;
 
     /*
@@ -21,14 +20,18 @@ public class Class {
 
     }
 
-    public Class(int classID, float price, String classification, float duration, Date date, Time time, int userID) {
+    /*
+     * model reflects the same order in mysql
+     */
+    public Class(int classID, float price, String classification, float duration, int userID, java.sql.Date date, int time) {
         this.ClassID = classID;
         this.Price = price;
         this.Classification = classification;
         this.Duration = duration;
+        this.UserID = userID;
         this.Date = date;
         this.Time = time;
-        this.UserID = userID;
+  
     }
 
     public int getClassID() {
@@ -66,24 +69,25 @@ public class Class {
     /*
      * receives date in yyyymmdd format
      */
-    public Date getDate() {
+    public java.sql.Date getDate() {
         return Date;
     }
 
     /*
      * param date : yyyymmdd format
      */
-    public void setDate(Date date) {
+    public void setDate(java.sql.Date date) {
         this.Date = date;
     }
 
-    public Time getTime() {
+    public int getTime() {
         return Time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(int time) {
         this.Time = time;
     }
+    
 
     public int getUserID() {
         return UserID;
