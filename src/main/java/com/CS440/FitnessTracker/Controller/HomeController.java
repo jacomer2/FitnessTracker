@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.CS440.FitnessTracker.DAO.ExerciseDAO;
+import com.CS440.FitnessTracker.DAO.ExerciseEntryDAO;
+import com.CS440.FitnessTracker.DAO.ExerciseEntryDAOImpl;
 import com.CS440.FitnessTracker.Model.Activity;
 import com.CS440.FitnessTracker.Model.Exercise;
 import com.CS440.FitnessTracker.Services.ActivityLog;
@@ -144,10 +146,14 @@ public class HomeController {
 		@PostMapping("/inputWorkout")
 		public ModelAndView inputWorkout(@RequestParam int exerciseID, @RequestParam int inputSets, @RequestParam int inputReps, @RequestParam int inputWeight)
 		{
+			ExerciseEntryDAO entryDAO = new ExerciseEntryDAOImpl();
+
 
 			System.out.println(inputSets + inputReps + inputWeight);
 
 			System.out.println(exerciseID);
+
+			entryDAO.setEntry(exerciseID, inputSets, inputReps, inputWeight);
 			
 
 			ModelAndView model = new ModelAndView();

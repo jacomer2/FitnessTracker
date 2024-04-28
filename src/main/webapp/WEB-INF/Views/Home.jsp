@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness App</title>
+    <title>FitTrackr</title>
     <style>
         /* Add your CSS styles here */
         body {
@@ -48,7 +48,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Fitness App</h1>
+            <h1>FitTrackr</h1>
             <nav>
                 <a href="/activitylog">Workout History</a>
                 <a href="/createWorkout">Create Workout</a>

@@ -10,6 +10,6 @@ public interface ExerciseEntryDAO {
     
     List<Entry> getEntriesByUserID(int userID);
 
-    void setEntry(@RequestParam int exerciseID, @RequestParam int sets, @RequestParam int reps, @RequestParam int weight);
+    void setEntry(int exerciseID, int sets, int reps, int weight);
 
 }

@@ -69,13 +69,14 @@ public class RoutineDAOImpl implements RoutineDaoInterface {
 
             // store values returned from db into user object
             while (resultTable.next()) {
-                Routine retRoutine = new Routine();
 
                 int id = resultTable.getInt(1);
+                Time startTime = resultTable.getTime(2);
+                Time endTime = resultTable.getTime(3);
 
-                retRoutine.setRoutineID(id);
-                retRoutine.setStartTime(resultTable.getTime(2));
-                retRoutine.setEndTime(resultTable.getTime(3));
+
+                Routine retRoutine = new Routine(id, startTime, endTime);
+
 
                 connection.close();
                 return retRoutine; // success
@@ -84,10 +85,10 @@ public class RoutineDAOImpl implements RoutineDaoInterface {
             System.out.println(e);
 
         }
-        Routine nullRoutine = new Routine();
-        nullRoutine.setRoutineID(-1);
-        return nullRoutine; // fail
-
+        // Routine nullRoutine = new Routine();
+        // nullRoutine.setRoutineID(-1);
+        // return nullRoutine; // fail
+        return null;
     }
 
     @Override

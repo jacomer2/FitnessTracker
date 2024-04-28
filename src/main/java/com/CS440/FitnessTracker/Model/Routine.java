@@ -8,6 +8,12 @@ public class Routine {
     private Time EndTime;
 
 
+    public Routine(int routineID, Time startTime, Time endTime) {
+        this.RoutineID = routineID;
+        this.StartTime = startTime;
+        this.EndTime = endTime;
+    }
+
     public int getRoutineID() {
         return RoutineID;
     }

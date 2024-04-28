@@ -6,21 +6,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Component;
 
+import com.CS440.FitnessTracker.Database.DatabaseManager;
 import com.CS440.FitnessTracker.Model.Entry;
 
+
+@Component
 public class ExerciseEntryDAOImpl implements ExerciseEntryDAO {
 
-    @Autowired
-    private DataSource dataSource;
+    private DatabaseManager dbManager = new DatabaseManager();
+    private DataSource dataSource = dbManager.connect();
 
     @Override
     public List<Entry> getEntriesByUserID(int userID) {
@@ -85,10 +88,55 @@ public class ExerciseEntryDAOImpl implements ExerciseEntryDAO {
             return null;
     }
 
-    public void setEntry(@RequestParam int exerciseID, @RequestParam int sets, @RequestParam int reps, @RequestParam int weight) {
+    @Override
+    public void setEntry(int exerciseID, int sets, int reps, int weight) {
         
         LocalDate currentDate = LocalDate.now();
+        LocalTime currentTime = LocalTime.now();
+        
+        // params
         Date date = Date.valueOf(currentDate);
+        Time time = Time.valueOf(currentTime);
+        int length = 0;
+        int userID = 1;
+        int routineID = 1;
+
+        try {
+            System.out.println("****BEFORE CONNECTION****");
+
+            Connection connection = dataSource.getConnection();
+            System.out.println("****INSIDE INSERT****");
+
+
+            String getQuery = "INSERT INTO exercise_entry (Sets, Repetitions, Weight, Date, Time, Length, UserID, ExerciseID, RoutineID) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement prepStatement = connection.prepareStatement(getQuery);
+            prepStatement.setInt(1, sets);
+            prepStatement.setInt(2, reps);
+            prepStatement.setInt(3, weight);
+            prepStatement.setDate(4, date);
+            prepStatement.setTime(5, time);
+            prepStatement.setInt(6, length);
+            prepStatement.setInt(7, userID);
+            prepStatement.setInt(8, exerciseID);
+            prepStatement.setInt(9, routineID);
+            prepStatement.executeUpdate();
+
+            connection.close();
+
+            return;
+        }
+        catch(Exception e)
+        {
+
+            System.out.println(e);
+        }
+    
+    return;
+
+
+
 
 
     }
