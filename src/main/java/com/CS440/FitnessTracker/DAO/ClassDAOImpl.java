@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.CS440.FitnessTracker.Model.Class;
 import com.CS440.FitnessTracker.Database.DatabaseManager;
 
-public class ClassDAO implements ClassDaoInterface{
+public class ClassDAOImpl implements ClassDaoInterface{
 
     @Autowired
     private DataSource dataSource;    
