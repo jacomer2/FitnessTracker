@@ -35,7 +35,7 @@ public class HomeController {
 
 		model.setViewName("Login");
 
-		System.out.println("inside home");
+		// System.out.println("inside home");
 
 
 		return model;
@@ -51,7 +51,7 @@ public class HomeController {
 		return model;
 	}
 
-	@PostMapping("/loginHandler")
+	@PostMapping("/Home")
 	public ModelAndView loginHandler()
 	{
 		ModelAndView model = new ModelAndView();

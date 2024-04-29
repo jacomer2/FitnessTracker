@@ -59,7 +59,7 @@
 <body>
 <div class="login-container">
   <h2>Login</h2>
-  <form action="/loginHandler" method="post">
+  <form action="/Home" method="post">
     <input type="text" name="username" placeholder="Username" required>
     <input type="password" name="password" placeholder="Password" required>
     <input type="submit" value="Login">

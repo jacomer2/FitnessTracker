@@ -53,7 +53,7 @@
                 <a href="/activitylog">Activity Log</a>
                 <a href="/createWorkout">Create Workout</a>
                 <a href="/class">Community</a>
-                <a href="/loginLink">LoginTest</a>
+                <a href="/loginLink">Logout</a>
                 <!-- Add more navigation links if needed -->
             </nav>
         </header>
@@ -72,7 +72,7 @@
             </section>
         </main>
         <footer>
-            <p>&copy; 2024 Fitness App. All rights reserved.</p>
+            <p>&copy; 2024 FitTrackr. All rights reserved.</p>
             <!-- Add additional footer content if needed -->
         </footer>
     </div>
