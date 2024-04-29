@@ -24,6 +24,12 @@ public class User {
         this.HashedPassword = HashedPassword;
         this.loggedIn = 0;
     }
+
+    public User(String username, String password){
+        this.Username = username;
+        this.HashedPassword = password;
+        this.loggedIn = 0;
+    }
     public User() {
         this.loggedIn = 0;
     }

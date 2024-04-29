@@ -2,12 +2,13 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login Page</title>
+<title>Register</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -65,15 +66,13 @@
 </style>
 </head>
 <body>
-<div class="login-container">
-  <h2>Login</h2>
-  <form action="/Home" method="post">
+<div class="register-container">
+  <h2>Register</h2>
+  <form action="/Register" method="post">
     <input type="text" name="username" placeholder="Username" required>
     <input type="password" name="password" placeholder="Password" required>
-    <input type="submit" value="Login">
+    <input type="submit" value="Register">
   </form>
-  <p class="regLink" >Don't have an account? </p>
-  <a class  href="/Register"> Register </a>
 
   <p id="error">${error}</p>
 </div>

@@ -129,6 +129,32 @@ public class HomeController {
 		return model;
 	}
 
+	@PostMapping("/Register")
+	public ModelAndView register(@RequestParam String username, @RequestParam String password)
+	{
+
+		if (user == null) {
+			//create user
+			User user = new User(username,password);
+			userDao.insertUser(user);
+		}
+
+			ModelAndView model = new ModelAndView();
+	
+			model.setViewName("Home");
+
+		return model;
+	}
+
+	@GetMapping("/Register")
+	public ModelAndView registerView()
+	{
+		ModelAndView model = new ModelAndView();
+		model.setViewName("Register");
+		return model;
+	}
+	
+
 	@GetMapping("/sandbox")
 	public ModelAndView sandboxHandler()
 	{
