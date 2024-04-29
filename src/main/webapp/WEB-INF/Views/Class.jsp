@@ -32,10 +32,16 @@
                 }
 
                 h1 a {
-             text-decoration: none;
-             color: #333;
- 
-         }
+                    text-decoration: none;
+                    color: #333;
+
+                }
+
+                footer {
+                    margin-top: 20px;
+                    padding-top: 20px;
+                    padding-left: 160px;
+                }
 
                 #title {
                     text-align: center;
@@ -96,8 +102,8 @@
                     <c:forEach items="${classes}" var="class" varStatus="status">
                         <tr>
                             <td>${class.getClassification()}</td>
-                            <td>$${class.getPrice()}</td>
-                            <td>${class.getDuration()} hour</td>
+                            <td>$${class.getPrice()}0</td>
+                            <td>${class.getDuration().intValue()} hour</td>
                             <td>${class.getDate().toString()}</td>
                         </tr>
                     </c:forEach>

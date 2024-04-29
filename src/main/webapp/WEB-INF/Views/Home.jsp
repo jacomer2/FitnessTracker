@@ -62,20 +62,9 @@
             <h3>Weight: ${weight}</h3>
             <h3>BMI: ${bmi}</h3>
             <h3>Weight range: ${bmi_class}</h3>
-
-            <!-- <section id="workouts">
-                <h2>Today's Workouts</h2>
-            </section>
-            <section id="progress">
-                <h2>Progress</h2>
-            </section>
-            <section id="community">
-                <h2>Community</h2>
-            </section> -->
         </main>
         <footer>
             <p>&copy; 2024 FitTrackr. All rights reserved.</p>
-            <!-- Add additional footer content if needed -->
         </footer>
     </div>
 </body>

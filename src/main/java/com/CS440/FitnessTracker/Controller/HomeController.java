@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,8 +70,6 @@ public class HomeController {
 		model.addObject("bmi", bmi);
 		model.addObject("bmi_class", bmi_class);
 
-
-		model.setViewName("Home");
 
 		model.setViewName("Home");
 
@@ -141,7 +138,7 @@ public class HomeController {
 
 		Map<String,String> map = new HashMap<>();
 
-		List exercises = exerciseDAO.getExerciseByFilter(map);
+		List<Exercise> exercises = exerciseDAO.getExerciseByFilter(map);
 
 		model.addObject("exercises", exercises);
 
@@ -214,7 +211,7 @@ public class HomeController {
 			}
 
 
-			List exercises = exerciseDAO.getExerciseByFilter(map);
+			List<Exercise> exercises = exerciseDAO.getExerciseByFilter(map);
 	
 			model.addObject("exercises", exercises);
 	

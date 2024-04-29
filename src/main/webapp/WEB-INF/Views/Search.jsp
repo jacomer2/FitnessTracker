@@ -149,32 +149,12 @@
             text-decoration: none;
             color: #333;
         }
+
+        footer {
+            text-align: center;
+        }
     </style>
 
-    
-            <!-- <script>
-        document.getElementById("searchForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        // Get form data
-        var formData = new FormData(this);
-
-        // Create a new row for the table
-        var newRow = "<tr>";
-        newRow += "<td>" + (document.getElementById("tableBody").rows.length + 1) + "</td>";
-        newRow += "<td>" + formData.get("category") + "</td>";
-        newRow += "<td>" + formData.get("muscle_group") + "</td>";
-        newRow += "<td>" + formData.get("difficulty") + "</td>";
-        newRow += "<td>" + formData.get("description") + "</td>";
-        newRow += "</tr>";
-
-        // Append the new row to the table body
-        document.getElementById("tableBody").innerHTML += newRow;
-
-        // Reset form
-        this.reset();
-        });
-        </script> -->
 </head>
 
 <body>
@@ -183,10 +163,8 @@
         <h1><a href="/homeLink">FitTrackr</a></h1>
         <nav>
             <a href="/activitylog">Activity Log</a>
-            <a href="/createWorkout">Create Workout</a>
-            <a href="#community">Community</a>
+            <a href="/class">Classes</a>
             <a href="/loginLink">Logout</a>
-            <a href="/sandbox">Sandbox</a>
             <!-- Add more navigation links if needed -->
         </nav>
     </header>
@@ -256,6 +234,11 @@
             </tbody>
         </table>
     </div>
+    
+    <footer>
+        <p>&copy; 2024 FitTrackr. All rights reserved.</p>
+        <!-- Add additional footer content if needed -->
+    </footer>
     </div>
 </body>
 
