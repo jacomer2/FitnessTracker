@@ -185,7 +185,7 @@
             <a href="/activitylog">Activity Log</a>
             <a href="/createWorkout">Create Workout</a>
             <a href="#community">Community</a>
-            <a href="/loginLink">LoginTest</a>
+            <a href="/loginLink">Logout</a>
             <a href="/sandbox">Sandbox</a>
             <!-- Add more navigation links if needed -->
         </nav>

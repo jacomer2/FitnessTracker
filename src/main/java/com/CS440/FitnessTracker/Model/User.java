@@ -10,6 +10,7 @@ public class User {
     private String BMI_Class;
     private int Age;
     private String HashedPassword;
+    private int loggedIn;
 
     public User(int UserID, String Username, String Name, int Height, Float Weight, Float BMI, String BMI_Class, int Age, String HashedPassword) {
         this.UserID = UserID;
@@ -21,8 +22,21 @@ public class User {
         this.BMI_Class = BMI_Class;
         this.Age = Age;
         this.HashedPassword = HashedPassword;
+        this.loggedIn = 0;
     }
-
+    public User() {
+        this.loggedIn = 0;
+    }
+    public void LogInTheUser() {
+        this.loggedIn = 1;
+    }
+    public int isUserLoggedIn(){
+        return this.loggedIn;
+    }
+    public void LogOutTheUser() {
+        this.loggedIn = 0;
+    }
+    
     public int getUserID() {
         return UserID;
     }

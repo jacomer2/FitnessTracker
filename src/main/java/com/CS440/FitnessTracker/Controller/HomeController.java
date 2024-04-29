@@ -18,6 +18,7 @@ import com.CS440.FitnessTracker.DAO.ExerciseEntryDAO;
 import com.CS440.FitnessTracker.DAO.ExerciseEntryDAOImpl;
 import com.CS440.FitnessTracker.Model.Activity;
 import com.CS440.FitnessTracker.Model.Exercise;
+import com.CS440.FitnessTracker.Model.User;
 import com.CS440.FitnessTracker.Services.ActivityLog;
 
 @Controller
@@ -45,8 +46,13 @@ public class HomeController {
 	public ModelAndView loginView()
 	{
 		ModelAndView model = new ModelAndView();
-
+		String auth = "auth";
+		User user = new User();
 		model.setViewName("Login");
+		model.addObject(auth, user.isUserLoggedIn());		//is this how we can access a variable to check if user is authenticated?
+		
+															//would i have to call dao.read(user) here to authenticate
+															// before sending mapping to Home page?
 
 		return model;
 	}
