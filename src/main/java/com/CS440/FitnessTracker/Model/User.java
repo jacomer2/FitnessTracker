@@ -30,6 +30,11 @@ public class User {
         this.HashedPassword = password;
         this.loggedIn = 0;
     }
+    public User(int height, float weight){
+        this.Height = height;
+        this.Weight = weight;
+        this.loggedIn = 0;
+    }
     public User() {
         this.loggedIn = 0;
     }

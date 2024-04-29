@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Register</title>
+<title>RegisterInfo</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -67,10 +67,12 @@
 </head>
 <body>
 <div class="register-container">
-  <h2>Register</h2>
+  <h2>Register your info</h2>
   <form action="/RegisterInfo" method="post">
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="password" name="password" placeholder="Password" required>
+    <h3>Name: ${name}</h3>
+    <h3>Username: ${username}</h3>
+    <input type="number" name="height" placeholder="Height (ex: 70)" required>
+    <input type="number" name="weight" placeholder="Weight (ex: 150)" required>
     <input type="submit" value="Register">
   </form>
 

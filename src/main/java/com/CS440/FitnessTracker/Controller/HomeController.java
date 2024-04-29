@@ -266,4 +266,32 @@ public class HomeController {
 	
 			return model;
 		}
+
+		@PostMapping("/RegisterInfo")
+		public ModelAndView register(@RequestParam int height, @RequestParam float weight)
+		{
+	
+			if (user == null) {
+				//create user
+				User user = new User(height,weight);
+				userDao.insertUser(user);
+				System.out.println("Height " + user.getHeight());
+				System.out.println("Weight " + user.getWeight());
+			}
+	
+				ModelAndView model = new ModelAndView();
+		
+				model.setViewName("Login");
+	
+			return model;
+		}
+	
+		@GetMapping("/RegisterInfo")
+		public ModelAndView registerInfoView()
+		{
+			ModelAndView model = new ModelAndView();
+			
+			model.setViewName("RegisterInfo");
+			return model;
+		}
 }
