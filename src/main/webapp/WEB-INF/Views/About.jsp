@@ -157,7 +157,7 @@
 <body>
     <div class="container">
         <header>
-            <h1 class="header-link"><a href="/Home">FitTrackr</a></h1>
+            <h1 class="header-link"><a href="/homeLink">FitTrackr</a></h1>
             <nav>
                 <a href="/createWorkout">Create Workout</a>
                 <a href="/class">Classes</a>
