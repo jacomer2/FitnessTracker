@@ -87,6 +87,7 @@
                     <nav>
                         <a href="/activitylog">Activity Log</a>
                         <a href="/createWorkout">Create Workout</a>
+                        <a href="/About">About</a>
                         <a href="/loginLink">Logout</a>
                     </nav>
                 </header>

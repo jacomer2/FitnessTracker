@@ -157,39 +157,42 @@
 <body>
     <div class="container">
         <header>
-            <h1 class="header-link"><a href="/homeLink">FitTrackr</a></h1>
+            <h1 class="header-link"><a href="/">FitTrackr</a></h1>
             <nav>
                 <a href="/createWorkout">Create Workout</a>
                 <a href="/class">Classes</a>
-                <a href="/About">About</a>
                 <a href="/loginLink">Logout</a>
             </nav>
         </header>
         <main>
-            <h2>Activity Log</h2>
+            <h2>About FitTrackr</h2>
+            <div>
+                <br/>
+                This application is a fitness tracker that allows you to track your exercises. Additionally, you can track your weight and BMI to help you meet your fitness goals. 
+                <br/>
+                <br/>
+                <br/>
+            </div>
+            <h2>Exercises That We Offer</h2>
             <div>
                              <!-- create results table -->
                 <table>
                     <tr>
-                        <th>Date</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Exercise</th>
-                        <th>Sets</th>
-                        <th>Repetitions</th>
-                        <th>Weight</th>
-                        <th>Total Time</th>
+
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Muscle Group</th>
+                        <th>Difficulty</th>
+
                     </tr>
-                    <c:forEach items="${activities}" var="activities" varStatus="status">
+                    <c:forEach items="${exercise_list}" var="exercise_list" varStatus="status">
                         <tr>
-                            <td>${activities.getDate()}</td>
-                            <td>${activities.getStartTime()}</td>
-                            <td>${activities.getEndTime()}</td>
-                            <td>${activities.getTitle()}</td>
-                            <td>${activities.getSets()}</td>
-                            <td>${activities.getRepetitions()}</td>
-                            <td>${activities.getWeight()}</td>
-                            <td>${activities.getTime()}</td>
+                            <td>${exercise_list.getTitle()}</td>
+                            <td>${exercise_list.getCategory()}</td>
+                            <td>${exercise_list.getDescription()}</td>
+                            <td>${exercise_list.getMuscleGroup()}</td>
+                            <td>${exercise_list.getDifficulty()}</td>
                         </tr>
                     </c:forEach>
                 </table>

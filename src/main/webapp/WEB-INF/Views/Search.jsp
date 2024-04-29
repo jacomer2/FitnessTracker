@@ -164,6 +164,7 @@
         <nav>
             <a href="/activitylog">Activity Log</a>
             <a href="/class">Classes</a>
+            <a href="/About">About</a>
             <a href="/loginLink">Logout</a>
             <!-- Add more navigation links if needed -->
         </nav>

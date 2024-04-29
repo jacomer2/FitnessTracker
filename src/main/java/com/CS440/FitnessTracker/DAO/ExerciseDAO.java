@@ -8,5 +8,5 @@ import com.CS440.FitnessTracker.Model.Exercise;
 public interface ExerciseDAO {
 
     List<Exercise> getExerciseByFilter(Map<String, String> filters);
-
+    List<Exercise> getExerciseByIndex();
 }

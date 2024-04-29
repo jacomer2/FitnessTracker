@@ -128,5 +128,43 @@ public class ExerciseDAOImpl implements ExerciseDAO {
 
         return null;
     }
+
+    //load exercise list offered by our platform using the index
+    @Override
+    public List<Exercise> getExerciseByIndex(){
+        int exerciseID;
+        String title;
+        String category;
+        String description;
+        String muscleGroup;
+        String difficulty;
+        List<Exercise> exercises = new ArrayList<>();
+
+            try {
+                Connection connection = dataSource.getConnection();
+                PreparedStatement prepStatement = connection.prepareStatement("SELECT * FROM exercise USE INDEX (idx_title);");
+
+                ResultSet resSet = prepStatement.executeQuery();
+                while(resSet.next()){
+                    exerciseID = resSet.getInt(1);
+                    title = resSet.getString(2);
+                    category = resSet.getString(3);
+                    description = resSet.getString(4);
+                    muscleGroup = resSet.getString(5);
+                    difficulty = resSet.getString(6);
+                    Exercise retrievedExercise = new Exercise(exerciseID, title, category, description, muscleGroup, difficulty);
+                    System.out.println(retrievedExercise.getTitle());
+                    exercises.add(retrievedExercise);
+            }   
+            return exercises;
+                
+    
+            }catch(Exception e){
+                System.out.println(e);
+             }
+
+        return null;
+
+    }
     
 }
