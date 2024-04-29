@@ -9,6 +9,9 @@ public interface ExerciseDAO {
 
     List<Exercise> getExerciseByFilter(Map<String, String> filters);
 
-    //search bar 
-     List<Exercise> getExerciseBySearch();
+    //about page 
+     List<Exercise> getExerciseListBySearch();
+
+     //search bar
+     Exercise getExerciseBySearch(String passedTitle);
 }

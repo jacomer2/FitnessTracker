@@ -171,9 +171,22 @@ public class HomeController {
 					model.setViewName("Exercises");
 			
 					//pass table from Activity log java code to jsp page for display
-					List<Exercise> exercise_list = exerciseDAO.getExerciseBySearch();
+					List<Exercise> exercise_list = exerciseDAO.getExerciseListBySearch();
 	
 				model.addObject("exercise_list", exercise_list);
+					return model;
+				}
+
+				//mapping for activity log page
+				@GetMapping("/exerciseSearch")
+				public ModelAndView exerciseSearch(@RequestParam String passedTitle)
+				{
+					ModelAndView model = new ModelAndView();
+					model.setViewName("Search");
+			
+					Exercise returnedExercise = exerciseDAO.getExerciseBySearch(passedTitle);
+	
+				model.addObject("exercise_list", returnedExercise);
 					return model;
 				}
 }

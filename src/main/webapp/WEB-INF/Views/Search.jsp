@@ -197,6 +197,7 @@
     <div class="search-container">
         <h2>Search Fitness Tracker</h2>
         <form id="searchForm" action="/workoutSearch" method="post">
+            <div>Explore options:</div>
             <select name="category">
                 <option value="" selected>Choose category</option>
                 <option value="bodyweight">Bodyweight</option>
@@ -218,8 +219,20 @@
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
             </select>
+            <input type="submit" value="Submit">
+        </form>
+        <form id="searchForm" action="/exerciseSearch">
+            <div>
+                <br/>
+                <br/>
+                <br/>
+                Search by name:
+                <input type = 'text' placeholder="Alternative Search Method" name = "passedTitle"/>
+            </div>
             <!-- <input type="text" name="description" placeholder="Description" required> -->
             <input type="submit" value="Submit">
+            <br/>
+            <br/>
         </form>
 
         <table id="dataTable">
