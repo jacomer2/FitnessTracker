@@ -96,7 +96,7 @@ public class HomeController {
 	public ModelAndView loginHandler(@RequestParam String username, @RequestParam String password)
 	{
 
-		if (user == null) {
+		if (user == null || username != user.getUsername()) {
 			user = userDao.getUser(username);
 		}
 
@@ -112,10 +112,13 @@ public class HomeController {
 
 			// add email to welcome page
 			model.addObject("username", username);
-			model.addObject("height", height);
-			model.addObject("weight", weight);
-			model.addObject("bmi", bmi);
-			model.addObject("bmi_class", bmi_class);
+			if (weight != 1) {
+				model.addObject("height", height);
+				model.addObject("weight", weight);
+				model.addObject("bmi", bmi);
+				model.addObject("bmi_class", bmi_class);
+			}
+
 
 
 			model.setViewName("Home");
@@ -148,10 +151,11 @@ public class HomeController {
 		return model;
 	}
 
-	@GetMapping("/Register")
+	@GetMapping("/RegisterView")
 	public ModelAndView registerView()
 	{
 		ModelAndView model = new ModelAndView();
+
 		
 		model.setViewName("Register");
 		return model;

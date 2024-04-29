@@ -62,7 +62,7 @@ public class UserDAOImpl implements UserDAO{
                 userName = resultTable.getString(8);
                 userID = resultTable.getInt(9);
 
-               retrievedUser = new User(userID, userName, name, height, weight, BMI, BMI_Class, age, hashedPassword);
+               retrievedUser = new User(userName, name,(int) height, weight, BMI, BMI_Class, age, hashedPassword);
             }
 
             connection.close();
@@ -123,7 +123,15 @@ public class UserDAOImpl implements UserDAO{
         // Store extracted attributes from user into variables
         String hashedPassword = user.getHashedPassword();
         int height = user.getHeight();
-        Float weight = user.getWeight();
+        if (height == 0) {
+            height = 10;
+        }
+        System.out.println("Height: " + height);
+        float weight = user.getWeight();
+        if (weight == 0) {
+            weight = 1;
+        }
+        System.out.println("Weight: " + weight);
         float BMI = user.getBMI();
         String BMI_Class = user.getBMI_Class();
         int age = user.getAge();
@@ -143,20 +151,26 @@ public class UserDAOImpl implements UserDAO{
                 return;
             }
             
-            String insertQuery = "INSERT INTO user VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO user (HashedPassword, Height, Weight, BMI, BMIClass, Age, Name, Username) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement prepStatement = connection.prepareStatement(insertQuery);
             prepStatement.setString(1, hashedPassword);
+            System.out.println("insert: after password");
             prepStatement.setInt(2, height);
+            System.out.println("insert: after height");
             prepStatement.setFloat(3, weight);
+            System.out.println("insert: after weight");
             prepStatement.setFloat(4, BMI);
             prepStatement.setString(5, BMI_Class);
             prepStatement.setInt(6, age);
             prepStatement.setString(7, name);
             prepStatement.setString(8, userName);
-            prepStatement.setInt(9, userID);
+            System.out.println("insert: after username");
+
             prepStatement.executeUpdate();
 
+
+            System.out.println("insert: after execute update");
             connection.close();
 
             return;

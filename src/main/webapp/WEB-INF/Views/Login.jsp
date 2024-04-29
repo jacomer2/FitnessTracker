@@ -73,7 +73,7 @@
     <input type="submit" value="Login">
   </form>
   <p class="regLink" >Don't have an account? </p>
-  <a class  href="/Register"> Register </a>
+  <a class  href="/RegisterView"> Register </a>
 
   <p id="error">${error}</p>
 </div>

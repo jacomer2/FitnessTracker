@@ -62,6 +62,7 @@
             <h3>Weight: ${weight}</h3>
             <h3>BMI: ${bmi}</h3>
             <h3>Weight range: ${bmi_class}</h3>
+
         </main>
         <footer>
             <p>&copy; 2024 FitTrackr. All rights reserved.</p>

@@ -104,7 +104,7 @@
                         <tr>
                             <td>${class.getClassification()}</td>
                             <td>$${class.getPrice()}0</td>
-                            <td>${class.getDuration().intValue()} hour</td>
+                            <td>${class.getDuration().intValue()} hr</td>
                             <td>${class.getDate().toString()}</td>
                         </tr>
                     </c:forEach>

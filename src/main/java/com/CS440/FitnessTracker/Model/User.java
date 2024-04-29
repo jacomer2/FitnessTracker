@@ -5,15 +5,14 @@ public class User {
     private String Username;
     private String Name;
     private int Height;
-    private Float Weight;
+    private float Weight;
     private float BMI;
     private String BMI_Class;
     private int Age;
     private String HashedPassword;
     private int loggedIn;
 
-    public User(int UserID, String Username, String Name, int Height, Float Weight, Float BMI, String BMI_Class, int Age, String HashedPassword) {
-        this.UserID = UserID;
+    public User(String Username, String Name, int Height, Float Weight, Float BMI, String BMI_Class, int Age, String HashedPassword) {
         this.Username = Username;
         this.Name = Name;
         this.Height = Height;
@@ -33,6 +32,8 @@ public class User {
     public User() {
         this.loggedIn = 0;
     }
+
+
     public void LogInTheUser() {
         this.loggedIn = 1;
     }
@@ -75,11 +76,11 @@ public class User {
         this.Height = Height;
     }
 
-    public Float getWeight() {
+    public float getWeight() {
         return Weight;
     }
 
-    public void setWeight(Float Weight) {
+    public void setWeight(float Weight) {
         this.Weight = Weight;
     }
 
