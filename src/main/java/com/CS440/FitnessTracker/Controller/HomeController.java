@@ -33,7 +33,7 @@ public class HomeController {
 	{
 		ModelAndView model = new ModelAndView();
 
-		model.setViewName("Home");
+		model.setViewName("Login");
 
 		System.out.println("inside home");
 
