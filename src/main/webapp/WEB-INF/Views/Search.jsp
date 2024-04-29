@@ -180,9 +180,9 @@
 <body>
     <div class="container">
     <header>
-        <h1><a href="/">Fitness App</a></h1>
+        <h1><a href="/">FitTrackr</a></h1>
         <nav>
-            <a href="/activitylog">Workout History</a>
+            <a href="/activitylog">Activity Log</a>
             <a href="/createWorkout">Create Workout</a>
             <a href="#community">Community</a>
             <a href="/loginLink">LoginTest</a>

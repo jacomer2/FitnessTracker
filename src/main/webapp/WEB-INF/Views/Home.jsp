@@ -50,7 +50,7 @@
         <header>
             <h1>FitTrackr</h1>
             <nav>
-                <a href="/activitylog">Workout History</a>
+                <a href="/activitylog">Activity Log</a>
                 <a href="/createWorkout">Create Workout</a>
                 <a href="/class">Community</a>
                 <a href="/loginLink">LoginTest</a>
