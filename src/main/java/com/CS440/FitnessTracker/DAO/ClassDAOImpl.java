@@ -15,10 +15,12 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.CS440.FitnessTracker.Model.Class;
 import com.CS440.FitnessTracker.Database.DatabaseManager;
 
+@Component
 public class ClassDAOImpl implements ClassDaoInterface{
 
     @Autowired
@@ -85,7 +87,10 @@ public class ClassDAOImpl implements ClassDaoInterface{
 
             Connection connection = dataSource.getConnection();
 
+
             String getQuery = "SELECT * FROM user WHERE ClassID = ?";
+
+
             
             PreparedStatement prepStatement = connection.prepareStatement(getQuery);
             prepStatement.setInt(1, retrieveClass.getClassID());
@@ -129,12 +134,19 @@ public class ClassDAOImpl implements ClassDaoInterface{
 
             Connection connection = dataSource.getConnection();
 
+            System.out.println("test1");
+
             String getQuery = "SELECT * FROM class";
             
             PreparedStatement prepStatement = connection.prepareStatement(getQuery);
+
+            System.out.println("test2");
+
         
             //execute
             ResultSet resultTable = prepStatement.executeQuery();
+            System.out.println("test3");
+
 
             // store values returned from db into user object
             if (resultTable.next()) {
@@ -142,10 +154,7 @@ public class ClassDAOImpl implements ClassDaoInterface{
                 modelClass.setClassID(resultTable.getInt(1));
                 modelClass.setPrice(resultTable.getFloat(2));
                 modelClass.setDuration(resultTable.getFloat(3));
-                modelClass.setUserID(resultTable.getInt(4));
-
-                String enumString = resultTable.getString(5);
-                modelClass.setClassification(enumString);
+                modelClass.setClassification(resultTable.getString(4));
 
                 String dateStr = "05-02-2024";
                 SimpleDateFormat obj = new SimpleDateFormat("MM-dd-yyyy");      

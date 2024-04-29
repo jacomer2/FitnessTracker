@@ -54,6 +54,10 @@
   input[type="submit"]:hover {
     background-color: #45a049;
   }
+
+  #error {
+    color: red;
+  }
 </style>
 </head>
 <body>
@@ -64,6 +68,8 @@
     <input type="password" name="password" placeholder="Password" required>
     <input type="submit" value="Login">
   </form>
+
+  <p id="error">${error}</p>
 </div>
 </body>
 </html>

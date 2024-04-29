@@ -180,7 +180,7 @@
 <body>
     <div class="container">
     <header>
-        <h1><a href="/">FitTrackr</a></h1>
+        <h1><a href="/homeLink">FitTrackr</a></h1>
         <nav>
             <a href="/activitylog">Activity Log</a>
             <a href="/createWorkout">Create Workout</a>

@@ -157,13 +157,11 @@
 <body>
     <div class="container">
         <header>
-            <h1 class="header-link"><a href="/">FitTrackr</a></h1>
+            <h1 class="header-link"><a href="/homeLink">FitTrackr</a></h1>
             <nav>
-                <a href="/activitylog">Activity Log</a>
                 <a href="/createWorkout">Create Workout</a>
-                <a href="#community">Community</a>
+                <a href="/class">Classes</a>
                 <a href="/loginLink">Logout</a>
-                <a href="/sandbox">Sandbox</a>
             </nav>
         </header>
         <main>

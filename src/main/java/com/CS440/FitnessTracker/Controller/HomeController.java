@@ -1,5 +1,6 @@
 package com.CS440.FitnessTracker.Controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.CS440.FitnessTracker.DAO.ClassDaoInterface;
 import com.CS440.FitnessTracker.DAO.ExerciseDAO;
 import com.CS440.FitnessTracker.DAO.ExerciseEntryDAO;
 import com.CS440.FitnessTracker.DAO.ExerciseEntryDAOImpl;
+import com.CS440.FitnessTracker.DAO.UserDAO;
 import com.CS440.FitnessTracker.Model.Activity;
 import com.CS440.FitnessTracker.Model.Exercise;
 import com.CS440.FitnessTracker.Model.User;
@@ -27,6 +30,14 @@ public class HomeController {
 
 	@Autowired
     private ExerciseDAO exerciseDAO;
+
+	@Autowired 
+	private ClassDaoInterface classDAO;
+
+	@Autowired
+	private UserDAO userDao;
+
+	private User user;
 
 	
 	@GetMapping
@@ -41,6 +52,33 @@ public class HomeController {
 
 		return model;
 	}
+
+
+	@GetMapping("/homeLink")
+	public ModelAndView homeLink()
+	{
+		ModelAndView model = new ModelAndView();
+
+		int height = user.getHeight();
+		float weight = user.getWeight();
+		float bmi = user.getBMI();
+		String bmi_class = user.getBMI_Class();
+
+		// add email to welcome page
+		model.addObject("username", user.getUsername());
+		model.addObject("height", height);
+		model.addObject("weight", weight);
+		model.addObject("bmi", bmi);
+		model.addObject("bmi_class", bmi_class);
+
+
+		model.setViewName("Home");
+
+		model.setViewName("Home");
+
+		return model;
+	}
+	
 
 	@GetMapping("/loginLink")
 	public ModelAndView loginView()
@@ -58,11 +96,38 @@ public class HomeController {
 	}
 
 	@PostMapping("/Home")
-	public ModelAndView loginHandler()
+	public ModelAndView loginHandler(@RequestParam String username, @RequestParam String password)
 	{
+
+		if (user == null) {
+			user = userDao.getUser(username);
+		}
+
 		ModelAndView model = new ModelAndView();
 
-		model.setViewName("Home");
+
+
+		if (user != null && user.getHashedPassword().equals(password)) {
+			int height = user.getHeight();
+			float weight = user.getWeight();
+			float bmi = user.getBMI();
+			String bmi_class = user.getBMI_Class();
+
+			// add email to welcome page
+			model.addObject("username", username);
+			model.addObject("height", height);
+			model.addObject("weight", weight);
+			model.addObject("bmi", bmi);
+			model.addObject("bmi_class", bmi_class);
+
+
+			model.setViewName("Home");
+
+		} else {
+
+			model.addObject("error", "Invalid login credentials");
+			model.setViewName("Login"); // Redirect back to login page if user is not valid
+		}
 
 		return model;
 	}
@@ -110,9 +175,16 @@ public class HomeController {
 		}
 
 		@GetMapping("/class")
-		public ModelAndView classHandler()
+		public ModelAndView classHandler() throws SQLException
 		{
 			ModelAndView model = new ModelAndView();
+
+			List<com.CS440.FitnessTracker.Model.Class> classes = classDAO.readAll();
+
+			System.out.println(classes.toString());
+
+			model.addObject("classes", classes);
+
 	
 			model.setViewName("Class");
 	

@@ -28,7 +28,7 @@
             padding-bottom: 20px;
             border-bottom: 1px solid #ccc;
         }
-        h1 {
+        #title {
             text-align: center;
             color: #333;
         }
@@ -42,34 +42,36 @@
             text-decoration: none;
             color: #333;
         }
-        /* Add more styles as needed */
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>FitTrackr</h1>
+            <h1 id="title">FitTrackr</h1>
             <nav>
                 <a href="/activitylog">Activity Log</a>
                 <a href="/createWorkout">Create Workout</a>
-                <a href="/class">Community</a>
+                <a href="/class">Classes</a>
                 <a href="/loginLink">Logout</a>
                 <!-- Add more navigation links if needed -->
             </nav>
         </header>
         <main>
-            <section id="workouts">
+            <h1>Welcome ${username}</h1>
+            <h3>Height: ${height}</h3>
+            <h3>Weight: ${weight}</h3>
+            <h3>BMI: ${bmi}</h3>
+            <h3>Weight range: ${bmi_class}</h3>
+
+            <!-- <section id="workouts">
                 <h2>Today's Workouts</h2>
-                <!-- Add content for displaying today's workouts -->
             </section>
             <section id="progress">
                 <h2>Progress</h2>
-                <!-- Add content for displaying user's fitness progress -->
             </section>
             <section id="community">
                 <h2>Community</h2>
-                <!-- Add content for displaying community features -->
-            </section>
+            </section> -->
         </main>
         <footer>
             <p>&copy; 2024 FitTrackr. All rights reserved.</p>
