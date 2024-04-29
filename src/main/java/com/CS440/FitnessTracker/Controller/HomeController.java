@@ -162,4 +162,18 @@ public class HomeController {
 	
 			return model;
 		}
+
+				//mapping for activity log page
+				@GetMapping("/Exercises")
+				public ModelAndView exerciseView()
+				{
+					ModelAndView model = new ModelAndView();
+					model.setViewName("Exercises");
+			
+					//pass table from Activity log java code to jsp page for display
+					List<Exercise> exercise_list = exerciseDAO.getExerciseBySearch();
+	
+				model.addObject("exercise_list", exercise_list);
+					return model;
+				}
 }

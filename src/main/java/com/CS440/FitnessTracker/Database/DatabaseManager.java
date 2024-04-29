@@ -9,16 +9,31 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 public class DatabaseManager {
+    // @Bean
+    // public DataSource connect() {
+    //     DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    //     dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+    //     dataSource.setUrl("jdbc:mysql://localhost:3306/cs440");
+    //     dataSource.setUsername("guest_user");
+    //     dataSource.setPassword("guest_password");
+
+    //     return dataSource;
+    // }
+
+
+    
+//data source for emily and luke
     @Bean
     public DataSource connect() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/cs440");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/cs440?serverTimezone=America/New_York");
         dataSource.setUsername("guest_user");
-        dataSource.setPassword("guest_password");
+        dataSource.setPassword("Guest_password!1");
 
         return dataSource;
     }
+
 
 /* 
     public static Connection connection() throws SQLException
