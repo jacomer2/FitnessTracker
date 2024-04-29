@@ -14,7 +14,7 @@ import com.CS440.FitnessTracker.Model.User;
 public class UserDAOImplTest {
 
     @Autowired
-    private UserDAO userDAO;
+    private UserDAOImpl userDAO;
 
     @Test
     public void testInsert() {
@@ -29,6 +29,7 @@ public class UserDAOImplTest {
         System.out.println(userDAO);
 
         userDAO.insertUser(testUser);
+        assertNotNull(userDAO.getUser("john24"));
 
     }
 

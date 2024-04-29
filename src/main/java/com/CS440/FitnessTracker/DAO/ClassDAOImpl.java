@@ -1,25 +1,24 @@
 package com.CS440.FitnessTracker.DAO;
 
-import java.security.Timestamp;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.CS440.FitnessTracker.Model.Class;
-import com.CS440.FitnessTracker.Database.DatabaseManager;
 
-public class ClassDAO implements ClassDaoInterface{
+@Component
+public class ClassDAOImpl implements ClassDaoInterface{
 
     @Autowired
     private DataSource dataSource;    
@@ -36,7 +35,7 @@ public class ClassDAO implements ClassDaoInterface{
         String Classification = modelClass.getClassification();
         float Duration = modelClass.getDuration();
         Date Date = modelClass.getDate();
-        int Time = modelClass.getTime();
+        Time Time = modelClass.getTime();
         int UserID = modelClass.getUserID();
 
         try {
@@ -52,7 +51,7 @@ public class ClassDAO implements ClassDaoInterface{
             prepStatement.setInt(6, UserID);
             prepStatement.setString(3, Classification);
             prepStatement.setDate(5, Date);    
-            prepStatement.setInt(7, Time);            
+            prepStatement.setTime(7, Time);            
 
             prepStatement.executeUpdate();
 
@@ -85,7 +84,10 @@ public class ClassDAO implements ClassDaoInterface{
 
             Connection connection = dataSource.getConnection();
 
+
             String getQuery = "SELECT * FROM user WHERE ClassID = ?";
+
+
             
             PreparedStatement prepStatement = connection.prepareStatement(getQuery);
             prepStatement.setInt(1, retrieveClass.getClassID());
@@ -103,7 +105,7 @@ public class ClassDAO implements ClassDaoInterface{
                 modelClass.setUserID(resultTable.getInt(4));
                 modelClass.setClassification(resultTable.getString(5));
                 modelClass.setDate(resultTable.getDate(6));
-                modelClass.setTime(resultTable.getInt(7));
+             //   modelClass.setTime(resultTable.getInt(7));
          
                 connection.close();
 
@@ -129,30 +131,34 @@ public class ClassDAO implements ClassDaoInterface{
 
             Connection connection = dataSource.getConnection();
 
+            System.out.println("test1");
+
             String getQuery = "SELECT * FROM class";
             
             PreparedStatement prepStatement = connection.prepareStatement(getQuery);
+
+            System.out.println("test2");
+
         
             //execute
             ResultSet resultTable = prepStatement.executeQuery();
+            System.out.println("test3");
+
 
             // store values returned from db into user object
-            if (resultTable.next()) {
+            while (resultTable.next()) {
                 Class modelClass = new Class();
                 modelClass.setClassID(resultTable.getInt(1));
                 modelClass.setPrice(resultTable.getFloat(2));
                 modelClass.setDuration(resultTable.getFloat(3));
-                modelClass.setUserID(resultTable.getInt(4));
+                modelClass.setClassification(resultTable.getString(4));
 
-                String enumString = resultTable.getString(5);
-                modelClass.setClassification(enumString);
+                // String dateStr = "05-02-2024";
+                // SimpleDateFormat obj = new SimpleDateFormat("MM-dd-yyyy");      
+                // long dateLong = obj.parse(dateStr).getTime(); 
 
-                String dateStr = "05-02-2024";
-                SimpleDateFormat obj = new SimpleDateFormat("MM-dd-yyyy");      
-                long dateLong = obj.parse(dateStr).getTime(); 
-
-                Date date = new Date(dateLong);
-                modelClass.setDate(date);    //need to find correct conversions
+                // Date date = new Date(dateLong);
+                modelClass.setDate(resultTable.getDate(5));    //need to find correct conversions
 
                 classList.add(modelClass);
             }

@@ -3,6 +3,7 @@ package com.CS440.FitnessTracker.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Random;
 
 import javax.sql.DataSource;
 
@@ -212,4 +213,51 @@ public class UserDAOImpl implements UserDAO{
         }
     }
     
+
+
+    /**
+     * @brief inserts user into database
+     * @param user to be inserted in database
+     */
+    public void insertUserByRegister(String username, String password) {
+
+        Random rand = new Random();
+        int userid = rand.nextInt(1000);
+
+        // Store extracted attributes from user into variables
+        String hashedPassword = password;
+        String userName = username;
+        int userID = userid;
+
+        try {
+
+            Connection connection = dataSource.getConnection();
+
+            System.out.println("****INSIDE INSERT****");
+
+            // return if user is already in the system
+            if(getUser(userName) != null) {
+                System.out.println("insertUser message: User already in system.");
+                return;
+            }
+            
+            String insertQuery = "INSERT INTO user VALUES (?, ?, ?)";
+
+            PreparedStatement prepStatement = connection.prepareStatement(insertQuery);
+            prepStatement.setString(1, hashedPassword);
+            prepStatement.setString(2, userName);
+            prepStatement.setInt(3, userID);
+            prepStatement.executeUpdate();
+
+            connection.close();
+
+            return;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+        return;
+    }
 }

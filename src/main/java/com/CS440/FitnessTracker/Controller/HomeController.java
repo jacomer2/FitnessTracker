@@ -1,23 +1,26 @@
 package com.CS440.FitnessTracker.Controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.CS440.FitnessTracker.DAO.ClassDaoInterface;
 import com.CS440.FitnessTracker.DAO.ExerciseDAO;
 import com.CS440.FitnessTracker.DAO.ExerciseEntryDAO;
 import com.CS440.FitnessTracker.DAO.ExerciseEntryDAOImpl;
+import com.CS440.FitnessTracker.DAO.UserDAO;
 import com.CS440.FitnessTracker.Model.Activity;
 import com.CS440.FitnessTracker.Model.Exercise;
+import com.CS440.FitnessTracker.Model.User;
 import com.CS440.FitnessTracker.Services.ActivityLog;
 
 @Controller
@@ -27,39 +30,133 @@ public class HomeController {
 	@Autowired
     private ExerciseDAO exerciseDAO;
 
+	@Autowired 
+	private ClassDaoInterface classDAO;
+
+	@Autowired
+	private UserDAO userDao;
+
+	private User user;
+
 	
 	@GetMapping
 	public ModelAndView homeView()
 	{
 		ModelAndView model = new ModelAndView();
 
-		model.setViewName("Home");
+		model.setViewName("Login");
 
-		System.out.println("inside home");
+		// System.out.println("inside home");
 
 
 		return model;
 	}
+
+
+	@GetMapping("/homeLink")
+	public ModelAndView homeLink()
+	{
+		ModelAndView model = new ModelAndView();
+
+		int height = user.getHeight();
+		float weight = user.getWeight();
+		float bmi = user.getBMI();
+		String bmi_class = user.getBMI_Class();
+
+		// add email to welcome page
+		model.addObject("username", user.getUsername());
+		model.addObject("height", height);
+		model.addObject("weight", weight);
+		model.addObject("bmi", bmi);
+		model.addObject("bmi_class", bmi_class);
+
+
+		model.setViewName("Home");
+
+		return model;
+	}
+	
 
 	@GetMapping("/loginLink")
 	public ModelAndView loginView()
 	{
 		ModelAndView model = new ModelAndView();
-
+		String auth = "auth";
+		User user = new User();
 		model.setViewName("Login");
+		model.addObject(auth, user.isUserLoggedIn());		//is this how we can access a variable to check if user is authenticated?
+		
+															//would i have to call dao.read(user) here to authenticate
+															// before sending mapping to Home page?
 
 		return model;
 	}
 
-	@PostMapping("/loginHandler")
-	public ModelAndView loginHandler()
+	@PostMapping("/Home")
+	public ModelAndView loginHandler(@RequestParam String username, @RequestParam String password)
 	{
+
+		if (user == null) {
+			user = userDao.getUser(username);
+		}
+
 		ModelAndView model = new ModelAndView();
 
-		model.setViewName("Home");
+
+
+		if (user != null && user.getHashedPassword().equals(password)) {
+			int height = user.getHeight();
+			float weight = user.getWeight();
+			float bmi = user.getBMI();
+			String bmi_class = user.getBMI_Class();
+
+			// add email to welcome page
+			model.addObject("username", username);
+			model.addObject("height", height);
+			model.addObject("weight", weight);
+			model.addObject("bmi", bmi);
+			model.addObject("bmi_class", bmi_class);
+
+
+			model.setViewName("Home");
+
+		} else {
+
+			model.addObject("error", "Invalid login credentials");
+			model.setViewName("Login"); // Redirect back to login page if user is not valid
+		}
 
 		return model;
 	}
+
+	@PostMapping("/Register")
+	public ModelAndView register(@RequestParam String username, @RequestParam String password)
+	{
+
+		if (user == null) {
+			//create user
+			User user = new User(username,password);
+			userDao.insertUser(user);
+			System.out.println("User created: " + user.getUsername() + " " + user.getHashedPassword());
+			System.out.println("User ID: " + userDao.getUser(username));
+		}
+
+			ModelAndView model = new ModelAndView();
+	
+			model.setViewName("Login");
+
+		return model;
+	}
+
+	@GetMapping("/Register")
+	public ModelAndView registerView()
+	{
+		ModelAndView model = new ModelAndView();
+		
+		model.setViewName("Register");
+		return model;
+	}
+
 
 	@GetMapping("/sandbox")
 	public ModelAndView sandboxHandler()
@@ -70,7 +167,7 @@ public class HomeController {
 
 		Map<String,String> map = new HashMap<>();
 
-		List exercises = exerciseDAO.getExerciseByFilter(map);
+		List<Exercise> exercises = exerciseDAO.getExerciseByFilter(map);
 
 		model.addObject("exercises", exercises);
 
@@ -104,9 +201,16 @@ public class HomeController {
 		}
 
 		@GetMapping("/class")
-		public ModelAndView classHandler()
+		public ModelAndView classHandler() throws SQLException
 		{
 			ModelAndView model = new ModelAndView();
+
+			List<com.CS440.FitnessTracker.Model.Class> classes = classDAO.readAll();
+
+			System.out.println(classes.toString());
+
+			model.addObject("classes", classes);
+
 	
 			model.setViewName("Class");
 	
@@ -136,7 +240,7 @@ public class HomeController {
 			}
 
 
-			List exercises = exerciseDAO.getExerciseByFilter(map);
+			List<Exercise> exercises = exerciseDAO.getExerciseByFilter(map);
 	
 			model.addObject("exercises", exercises);
 	

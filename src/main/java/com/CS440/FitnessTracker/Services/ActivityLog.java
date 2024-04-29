@@ -12,7 +12,6 @@ import com.CS440.FitnessTracker.Database.DatabaseManager;
 import com.CS440.FitnessTracker.Model.Activity;
 
 import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
