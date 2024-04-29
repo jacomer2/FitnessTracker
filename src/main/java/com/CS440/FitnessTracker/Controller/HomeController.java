@@ -268,7 +268,7 @@ public class HomeController {
 		}
 
 		@PostMapping("/RegisterInfo")
-		public ModelAndView register(@RequestParam int height, @RequestParam float weight)
+		public ModelAndView registerInfo(@RequestParam int height, @RequestParam float weight)
 		{
 	
 			if (user == null) {
