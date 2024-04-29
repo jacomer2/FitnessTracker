@@ -137,11 +137,13 @@ public class HomeController {
 			//create user
 			User user = new User(username,password);
 			userDao.insertUser(user);
+			System.out.println("User created: " + user.getUsername() + " " + user.getHashedPassword());
+			System.out.println("User ID: " + userDao.getUser(username));
 		}
 
 			ModelAndView model = new ModelAndView();
 	
-			model.setViewName("Home");
+			model.setViewName("Login");
 
 		return model;
 	}
@@ -150,10 +152,11 @@ public class HomeController {
 	public ModelAndView registerView()
 	{
 		ModelAndView model = new ModelAndView();
+		
 		model.setViewName("Register");
 		return model;
 	}
-	
+
 
 	@GetMapping("/sandbox")
 	public ModelAndView sandboxHandler()
