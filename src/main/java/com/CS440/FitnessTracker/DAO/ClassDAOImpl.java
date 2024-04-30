@@ -473,6 +473,25 @@ public class ClassDAOImpl implements ClassDaoInterface{
 
     }
 
+    public int taxUser(Class getclasses) {
+        try {
+            Connection connection = dataSource.getConnection();
+
+            String funcQuery = "SELECT price_tax(?) as total";
+            PreparedStatement prepStatement = connection.prepareStatement(funcQuery);
+            prepStatement.setInt(1, getclasses.getClassID());
+            
+            prepStatement.close();
+            connection.close();
+
+            return 0; // success
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+
+        return 1; //fail
+    }
 
     @Override
     public ArrayList<com.CS440.FitnessTracker.Model.Class> readByClassification(String classification) throws SQLException {

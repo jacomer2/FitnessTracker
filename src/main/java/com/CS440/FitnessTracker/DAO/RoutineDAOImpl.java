@@ -141,4 +141,25 @@ public class RoutineDAOImpl implements RoutineDaoInterface {
 
     }
 
+    @Override
+    public int duration(int routineID) {
+        try {
+            Connection connection = dataSource.getConnection();
+
+            String funcQuery = "SELECT duration(?) as period";
+            PreparedStatement prepStatement = connection.prepareStatement(funcQuery);
+            prepStatement.setInt(1, routineID);
+            
+            prepStatement.close();
+            connection.close();
+
+            return 0; // success
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+
+        return 1; //fail
+    }
+
 }

@@ -7,6 +7,9 @@ public class Routine {
     private Time StartTime;
     private Time EndTime;
 
+    public Routine(){
+        
+    }
 
     public Routine(int routineID, Time startTime, Time endTime) {
         this.RoutineID = routineID;

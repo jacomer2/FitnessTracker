@@ -8,5 +8,6 @@ public interface RoutineDaoInterface {
     Routine read(int routineID);
     int update(Routine routine);
     int delete(int routineID);
-
+    int duration(int routineID);
+    
 }
