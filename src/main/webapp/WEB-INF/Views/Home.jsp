@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FitTrackr</title>
     <style>
-        /* Add your CSS styles here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -53,6 +52,7 @@
                 <a href="/createWorkout">Create Workout</a>
                 <a href="/class">Classes</a>
                 <a href="/About">About</a>
+                <a href="/Profile">Profile</a>
                 <a href="/loginLink">Logout</a>
                 <!-- Add more navigation links if needed -->
             </nav>

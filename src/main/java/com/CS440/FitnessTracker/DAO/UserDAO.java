@@ -29,5 +29,7 @@ public interface UserDAO {
      * @param params the list of attributes to update
      */
     void updateUser(User user, String[] params);
+
+    public void updateStats(User user, int height, float weight);
     
 }

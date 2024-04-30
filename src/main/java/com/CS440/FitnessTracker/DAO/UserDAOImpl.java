@@ -274,4 +274,29 @@ public class UserDAOImpl implements UserDAO{
 
         return;
     }
+
+
+    @Override
+    public void updateStats(User user, int height, float weight) {
+
+        // Store updated attributes in variables
+        try {
+            Connection connection = dataSource.getConnection();
+
+            String updateQuery = "UPDATE user SET Height = ?, Weight = ? WHERE UserName = ?";
+
+            PreparedStatement prepStatement = connection.prepareStatement(updateQuery);
+            prepStatement.setInt(1, height);
+            prepStatement.setFloat(2, weight);
+            prepStatement.setString(3, user.getUsername());
+
+            prepStatement.executeUpdate();
+
+            connection.close();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
 }

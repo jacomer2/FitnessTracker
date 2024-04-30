@@ -58,13 +58,15 @@ public class HomeController {
 	{
 		ModelAndView model = new ModelAndView();
 
-		int height = user.getHeight();
-		float weight = user.getWeight();
-		float bmi = user.getBMI();
-		String bmi_class = user.getBMI_Class();
+		User updatedUser = userDao.getUser(user.getUsername());
+
+		int height = updatedUser.getHeight();
+		float weight = updatedUser.getWeight();
+		float bmi = updatedUser.getBMI();
+		String bmi_class = updatedUser.getBMI_Class();
 
 		// add email to welcome page
-		model.addObject("username", user.getUsername());
+		model.addObject("username", updatedUser.getUsername());
 		model.addObject("height", height);
 		model.addObject("weight", weight);
 		model.addObject("bmi", bmi);
@@ -158,23 +160,6 @@ public class HomeController {
 
 		
 		model.setViewName("Register");
-		return model;
-	}
-
-
-	@GetMapping("/sandbox")
-	public ModelAndView sandboxHandler()
-	{
-		ModelAndView model = new ModelAndView();
-
-		model.setViewName("Sandbox");
-
-		Map<String,String> map = new HashMap<>();
-
-		List<Exercise> exercises = exerciseDAO.getExerciseByFilter(map);
-
-		model.addObject("exercises", exercises);
-
 		return model;
 	}
 
@@ -282,6 +267,37 @@ public class HomeController {
 			List<Exercise> exercise_list = exerciseDAO.getExerciseByIndex();
 
 		model.addObject("exercise_list", exercise_list);
+			return model;
+		}
+
+		@GetMapping("/Profile")
+		public ModelAndView profileView()
+		{
+			ModelAndView model = new ModelAndView();
+			model.setViewName("Profile");
+	
+			int height = user.getHeight();
+			float weight = user.getWeight();
+
+			model.addObject("height", height);
+			model.addObject("weight", weight);
+			return model;
+		}
+
+		@PostMapping("/profileUpdate")
+		public ModelAndView profileUpdate(@RequestParam int height, @RequestParam float weight)
+		{
+			ModelAndView model = new ModelAndView();
+			model.setViewName("Profile");
+	
+			//pass table from Activity log java code to jsp page for display
+			user.setHeight(height);
+			user.setWeight(weight);
+
+			userDao.updateStats(user, height, weight);
+
+			model.addObject("height", height);
+			model.addObject("weight", weight);
 			return model;
 		}
 }
